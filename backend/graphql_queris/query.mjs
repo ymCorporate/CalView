@@ -8,10 +8,6 @@ export class Query{
               uuid
               first_name
               last_name
-              email
-              company_name
-              company_role
-              password
             }
           }
         `
