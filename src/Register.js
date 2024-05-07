@@ -202,29 +202,49 @@ const Register = ()=>{
                         </p>
                         <label htmlFor="firstname">
                             First name:
+                            <span className={validFirstName ? "valid" : "hide"}>
+                                <FontAwesomeIcon icon={faCheck}/>
+                            </span>
+                            <span className={validFirstName || !firstName ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon={faTimes}/>
+                            </span>
                         </label>
                         <input
                             type="text"
                             id="firstname"
                             required
-                            onChange={(e)=>setFirstName(e.target.value)}
+                            onChange={(e) => setFirstName(e.target.value)}
 
                         />
                         <label htmlFor="lastname">
                             Last name:
+                            <span className={validLastName ? "valid" : "hide"}>
+                                <FontAwesomeIcon icon={faCheck}/>
+                            </span>
+                            <span className={validLastName|| !lastName ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon={faTimes}/>
+                            </span>
                         </label>
                         <input
                             type="text"
                             id="lastname"
                             required
-                            onChange={(e)=>setLastName(e.target.value)}
+                            onChange={(e) => setLastName(e.target.value)}
                         />
-                        <label htmlFor="password">
+                        <label htmlFor="phone">
                             Phone:
+                            <span className={validPhone ? "valid" : "hide"}>
+                                <FontAwesomeIcon icon={faCheck}/>
+                            </span>
+                            <span className={validPhone|| !phone ? "hide" : "invalid"}>
+                                <FontAwesomeIcon icon={faTimes}/>
+                            </span>
                         </label>
                         <input
-                        type="tel"
-                        id="phone"
+                            type="tel"
+                            id="phone"
+                            required
+                            onChange={(e)=>setPhone(e.target.value)}
                         />
                         <label htmlFor="companyname">
                             Company:
