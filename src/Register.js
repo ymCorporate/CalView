@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const USER_REGX = /^[a-zA-Z][a-zA-Z0-9_]{3,23}$/;
 const PWD_REGX =/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
+const NAME_REGX=/^[a-zA-Z][a-zA-Z]/;
+const PHONE_REGX=/^[0-9]{10}/;
 
 const Register = ()=>{
     const userRef = useRef();
@@ -21,6 +23,15 @@ const Register = ()=>{
     const [matchPwd,setMatchPwd]=useState('')
     const [validMatch,setValidMatch]=useState(false)
     const [matchFocus,setMatchFocus]=useState(false)
+
+    const [firstName,setFirstName]=useState('')
+    const [validFirstName,setValidFirstName]=useState(false)
+
+    const [lastName,setLastName]=useState('')
+    const [validLastName,setValidLastName]=useState(false)
+
+    const [phone,setPhone]=useState('')
+    const [validPhone,setValidPhone]=useState(false)
 
     const [errMsg,setErrMsg]= useState('')
     const [success,setSuccess]=useState(false)
@@ -39,7 +50,7 @@ const Register = ()=>{
     },[user])
 
     useEffect(() => {
-        const result = USER_REGX.test(pwd)
+        const result = PWD_REGX.test(pwd)
         console.log(pwd)
         console.log(result)
         setValidPwd(result)
@@ -48,13 +59,34 @@ const Register = ()=>{
     }, [pwd,matchPwd]);
 
     useEffect(()=>{
+        const result = NAME_REGX.test(firstName)
+        console.log(firstName)
+        console.log(result)
+        setValidFirstName(result);
+    },[firstName])
+
+    useEffect(()=>{
+        const result = NAME_REGX.test(lastName)
+        console.log(lastName)
+        console.log(result)
+        setValidLastName(result);
+    },[lastName])
+
+    useEffect(()=>{
+        const result = PHONE_REGX.test(phone)
+        console.log(phone)
+        console.log(result)
+        setValidPhone(result);
+    },[phone])
+
+    useEffect(()=>{
         setErrMsg('');
     },[user,pwd,matchPwd])
 
     const handleSubmit= async (e)=>{
         e.preventDefault();
         const v1 = USER_REGX.test(user)
-        const v2 = USER_REGX.test(pwd)
+        const v2 = PWD_REGX.test(pwd)
         if(!v1 || !v2) {
             setErrMsg('Invalid entry');
             return;
@@ -168,7 +200,40 @@ const Register = ()=>{
                             <FontAwesomeIcon icon={faInfoCircle}/>
                             Must match the password entered
                         </p>
-                        <button disabled={!validName || !validPwd || !validMatch ? true:false}>Sign up</button>
+                        <label htmlFor="firstname">
+                            First name:
+                        </label>
+                        <input
+                            type="text"
+                            id="firstname"
+                            required
+                            onChange={(e)=>setFirstName(e.target.value)}
+
+                        />
+                        <label htmlFor="lastname">
+                            Last name:
+                        </label>
+                        <input
+                            type="text"
+                            id="lastname"
+                            required
+                            onChange={(e)=>setLastName(e.target.value)}
+                        />
+                        <label htmlFor="password">
+                            Phone:
+                        </label>
+                        <input
+                        type="tel"
+                        id="phone"
+                        />
+                        <label htmlFor="companyname">
+                            Company:
+                        </label>
+                        <input
+                            type="text"
+                            id="companyname"
+                        />
+                        <button disabled={!validName || !validPwd || !validFirstName || !validLastName || !validMatch ? true : false}>Sign up</button>
                         <p>
                             Already registered?<br/>
                             <span className="line">
