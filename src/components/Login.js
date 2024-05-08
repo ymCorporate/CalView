@@ -1,8 +1,11 @@
-import { useRef,useState,useEffect} from 'react';
+import { useRef,useState,useEffect,useContext} from 'react';
+import AuthContext from "../context/AuthProvider";
+import {Link} from "react-router-dom";
 
 const Login =()=>{
     const userRef = useRef();
     const errRef= useRef();
+    //const {setAuth} = useContext(AuthContext);
 
     const [user,setUser]=useState('');
     const [pwd,setPwd]=useState('');
@@ -60,9 +63,7 @@ const Login =()=>{
                     <p>
                         Need an account?<br/>
                         <span className="line">
-                            <a href="#">
-                                Register here
-                            </a>
+                            <Link to="/Register">Register here</Link>
                         </span>
                     </p>
                 </form>

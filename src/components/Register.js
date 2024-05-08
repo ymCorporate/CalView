@@ -1,6 +1,7 @@
 import { useRef,useState,useEffect} from "react";
 import { faCheck,faTimes,faInfoCircle} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {Link} from "react-router-dom";
 //import axios from './api/axios'
 
 const USER_REGX = /^[a-zA-Z][a-zA-Z0-9_]{3,23}$/;
@@ -257,7 +258,7 @@ const Register = ()=>{
                         <p>
                             Already registered?<br/>
                             <span className="line">
-                                <a href='#'>Sign In</a>
+                                <Link to="/Login">Sign in</Link>
                             </span>
                         </p>
                     </form>
