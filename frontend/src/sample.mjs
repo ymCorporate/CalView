@@ -107,16 +107,30 @@ const query = new EventsQuery();
 // console.log(events());
 // console.log(events());
 
-(async () => {
-  const events_1 = await query.readEvent();
-  console.log(events_1);
-  const convertedEvents = events_1.map(event => ({
-    ...event,
-    startDate: new Date(event.start),
-    endDate: new Date(event.end)
-  }));
-  console.log(convertedEvents);
-})()
+
+
+// const events = async()=>{
+// try {
+//   return await query.readEvent();
+// } catch (error) {
+//   console.error(error);
+// }
+//   };
+const events = await query.readEvent();
+
+console.log(events);
+
+
+// (async () => {
+//   const events_1 = await query.readEvent();
+//   console.log(events_1);
+//   const convertedEvents = events_1.map(event => ({
+//     ...event,
+//     startDate: new Date(event.start),
+//     endDate: new Date(event.end)
+//   }));
+//   console.log(convertedEvents);
+// })()
 
 // console.log(events_1);
 

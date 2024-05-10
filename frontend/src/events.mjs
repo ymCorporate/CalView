@@ -1,87 +1,45 @@
-import { GraphQLClient } from 'graphql-request';
+import { ApolloClient, InMemoryCache, gql } from '@apollo/client';
 
-// GraphQL endpoint URL
+// Hasura endpoint
 const hasuraEndpoint = 'http://localhost:8080/v1/graphql';
 
-// Hasura admin secret (if required)
-const adminSecret = '123';
-
-// Create a new GraphQL client instance
-const client = new GraphQLClient(hasuraEndpoint, {
+// Create a new Apollo Client instance
+const client = new ApolloClient({
+  uri: hasuraEndpoint,
+  cache: new InMemoryCache(),
   headers: {
-    'x-hasura-admin-secret': adminSecret
-  }
+    'x-hasura-admin-secret': '123',
+  },
 });
 
+export class EventsQuery {
+  // Function to read all events
+  // async readEvent() {
+  //   const query = gql`
+  //     query MyQuery {
+  //       kalenview_events {
+  //         title
+  //         start
+  //         end
+  //         venue
+  //         description
+  //       }
+  //     }
+  //   `;
+
+  //   try {
+  //     const { data } = await client.query({ query });
+  //     return data.kalenview_events;
+  //   } catch (error) {
+  //     console.error('Error fetching event:', error);
+  //   }
+  // }
 
 
 
-export class EventsQuery{
-
-  // Function to insert a new event with the current date and time
-  async insertEvent() {
-    try {
-      // Create a new Date object representing the current date and time
-      const startTime = new Date(2024,4,10,13,30);
-      const endTime = new Date(2024,4,10,14);
-
-      // Format the date as a string in ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
-      const formattedStartTime = startTime.toISOString();
-      const formattedEndTime = endTime.toISOString();
-
-      // GraphQL mutation to insert a new event
-      const mutation = `
-        mutation InsertEvent($startTime: timestamptz!, $endTime: timestamptz!) {
-          insert_kalenview_events_one(object: {
-            uuid: "4800efb7-8d59-4328-854c-6d92e15944b9",
-            title: "TEST 1111",
-            start: $startTime,
-            end: $endTime,
-            venue: "V TEST",
-            description: "D TEST"
-          }) {
-            uuid
-            title
-            start
-            end
-            venue
-            description
-          }
-        }
-      `;
-
-      // Provide the startTime variable as a parameter in the GraphQL request
-      const variables = {
-        startTime: formattedStartTime,
-        endTime: formattedEndTime
-      };
-
-      // Execute the GraphQL mutation
-      const data = await client.request(mutation, variables);
-      // console.log('Event inserted successfully:');
-      console.log(data);
-    } catch (error) {
-      console.error('Error inserting event:');
-      console.error(error);
-    }
-  }
-
-  // Call the insertEvent function to insert a new event
-
-  // insertEvent();
-
-
-
-
-
-
-
-  // Function to read a all event with the current date and time
+  // Function to read all events
   async readEvent() {
-    try {
-
-      // GraphQL mutation to insert a new event
-      const fetch_events = `
+    const query = gql`
       query MyQuery {
         kalenview_events {
           title
@@ -91,31 +49,59 @@ export class EventsQuery{
           description
         }
       }
-      `;
+    `;
 
-      // Execute the GraphQL mutation
-      const data = await client.request(fetch_events);
-      // console.log('Event inserted successfully:');
-      // console.log(data.kalenview_events);
-      return data.kalenview_events;
+    try {
+      const { data } = await client.query({ query });
+      // Convert the start and end times to Date objects
+      const events = data.kalenview_events.map(event => ({
+        ...event,
+        start: new Date(event.start),
+        end: new Date(event.end),
+      }));
+      return events;
     } catch (error) {
-      console.error('Error fetching event:');
-      console.error(error);
+      console.error('Error fetching event:', error);
     }
   }
 
-// Call the insertEvent function to insert a new event
-
-// readEvent();
 
 
+  // Function to insert a new event
+  async insertEvent(startTime, endTime, title, venue, description) {
+    const mutation = gql`
+      mutation InsertEvent($startTime: timestamptz!, $endTime: timestamptz!, $title: String!, $venue: String!, $description: String!) {
+        insert_kalenview_events_one(object: {
+          uuid: "4800efb7-8d59-4328-854c-6d92e15944b9",
+          title: $title,
+          start: $startTime,
+          end: $endTime,
+          venue: $venue,
+          description: $description
+        }) {
+          uuid
+          title
+          start
+          end
+          venue
+          description
+        }
+      }
+    `;
+
+    const variables = {
+      startTime,
+      endTime,
+      title,
+      venue,
+      description,
+    };
+
+    try {
+      const { data } = await client.mutate({ mutation, variables });
+      console.log('Event inserted successfully:', data);
+    } catch (error) {
+      console.error('Error inserting event:', error);
+    }
+  }
 }
-
-// const qery = new EventsQuery();
-// // qery.readEvent();
-// qery.insertEvent();
-
-
-
-
-
