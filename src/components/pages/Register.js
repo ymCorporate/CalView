@@ -7,7 +7,7 @@ import {Link} from "react-router-dom";
 const USER_REGX = /^[a-zA-Z][a-zA-Z0-9_]{3,23}$/;
 const PWD_REGX =/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%]).{8,24}$/;
 const NAME_REGX=/^[a-zA-Z][a-zA-Z]/;
-const PHONE_REGX=/^[0-9]{10}/;
+//const PHONE_REGX=/^[0-9]{10}/;
 
 const Register = ()=>{
     const userRef = useRef();
@@ -31,8 +31,8 @@ const Register = ()=>{
     const [lastName,setLastName]=useState('')
     const [validLastName,setValidLastName]=useState(false)
 
-    const [phone,setPhone]=useState('')
-    const [validPhone,setValidPhone]=useState(false)
+    // const [phone,setPhone]=useState('')
+    // const [validPhone,setValidPhone]=useState(false)
 
     const [errMsg,setErrMsg]= useState('')
     const [success,setSuccess]=useState(false)
@@ -73,12 +73,12 @@ const Register = ()=>{
         setValidLastName(result);
     },[lastName])
 
-    useEffect(()=>{
-        const result = PHONE_REGX.test(phone)
-        console.log(phone)
-        console.log(result)
-        setValidPhone(result);
-    },[phone])
+    // useEffect(()=>{
+    //     const result = PHONE_REGX.test(phone)
+    //     console.log(phone)
+    //     console.log(result)
+    //     setValidPhone(result);
+    // },[phone])
 
     useEffect(()=>{
         setErrMsg('');
@@ -222,7 +222,7 @@ const Register = ()=>{
                             <span className={validLastName ? "valid" : "hide"}>
                                 <FontAwesomeIcon icon={faCheck}/>
                             </span>
-                            <span className={validLastName|| !lastName ? "hide" : "invalid"}>
+                            <span className={validLastName || !lastName ? "hide" : "invalid"}>
                                 <FontAwesomeIcon icon={faTimes}/>
                             </span>
                         </label>
@@ -232,29 +232,41 @@ const Register = ()=>{
                             required
                             onChange={(e) => setLastName(e.target.value)}
                         />
-                        <label htmlFor="phone">
-                            Phone:
-                            <span className={validPhone ? "valid" : "hide"}>
-                                <FontAwesomeIcon icon={faCheck}/>
-                            </span>
-                            <span className={validPhone|| !phone ? "hide" : "invalid"}>
-                                <FontAwesomeIcon icon={faTimes}/>
-                            </span>
-                        </label>
-                        <input
-                            type="tel"
-                            id="phone"
-                            required
-                            onChange={(e)=>setPhone(e.target.value)}
-                        />
+                        {/*<label htmlFor="phone">*/}
+                        {/*    Phone:*/}
+                        {/*    <span className={validPhone ? "valid" : "hide"}>*/}
+                        {/*        <FontAwesomeIcon icon={faCheck}/>*/}
+                        {/*    </span>*/}
+                        {/*    <span className={validPhone || !phone ? "hide" : "invalid"}>*/}
+                        {/*        <FontAwesomeIcon icon={faTimes}/>*/}
+                        {/*    </span>*/}
+                        {/*</label>*/}
+                        {/*<input*/}
+                        {/*    type="tel"*/}
+                        {/*    id="phone"*/}
+                        {/*    required*/}
+                        {/*    onChange={(e) => setPhone(e.target.value)}*/}
+                        {/*/>*/}
                         <label htmlFor="companyname">
                             Company:
                         </label>
                         <input
                             type="text"
                             id="companyname"
+                            required
                         />
-                        <button disabled={!validName || !validPwd || !validFirstName || !validLastName || !validMatch ? true : false}>Sign up</button>
+                        <label htmlFor="companyrole">
+                            Role:
+                        </label>
+                        <input
+                            type="text"
+                            id="companyrole"
+                            required
+                        />
+                        <button
+                            disabled={!validName || !validPwd || !validFirstName || !validLastName || !validMatch ? true : false}>Sign
+                            up
+                        </button>
                         <p>
                             Already registered?<br/>
                             <span className="line">

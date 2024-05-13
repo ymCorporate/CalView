@@ -1,12 +1,12 @@
-import Register from './components/Register'
-import Login from './components/Login'
-import Layout from "./components/Layout";
+import Register from './components/pages/Register'
+import Login from './components/pages/Login'
+import Layout from "./components/pages/Layout";
 import { Routes,Route} from "react-router-dom";
-import LinkPage from "./components/LinkPage";
-import Home from "./components/Home";
-import Editor from "./components/Editor";
-import Lounge from "./components/Lounge";
-import Admin from "./components/Admin";
+import LinkPage from "./components/pages/LinkPage";
+import Home from "./components/pages/Home";
+import Editor from "./components/pages/Editor";
+import Lounge from "./components/pages/Lounge";
+import Admin from "./components/pages/Admin";
 import Missing from "./components/Missing";
 import Unauthorized from "./components/Unauthorized";
 

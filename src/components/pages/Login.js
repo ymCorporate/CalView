@@ -1,5 +1,5 @@
 import { useRef,useState,useEffect,useContext} from 'react';
-import AuthContext from "../context/AuthProvider";
+import AuthContext from "../../context/AuthProvider";
 import {Link} from "react-router-dom";
 
 const Login =()=>{
@@ -24,6 +24,7 @@ const Login =()=>{
         e.preventDefault();
         console.log(user,pwd)
         setSuccess(true)
+
     }
     return (success?(
             <section>
