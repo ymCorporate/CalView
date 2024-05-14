@@ -1,5 +1,23 @@
 import React, { useState } from 'react';
 
+const TimeSelect = ({ disabled, onChange }) => {
+    const times = [];
+    for(let i=0; i<24; i++) {
+        for(let j=0; j<60; j+=30) {
+            const time = `${i.toString().padStart(2, '0')}:${j.toString().padStart(2, '0')}`;
+            times.push(time);
+        }
+    }
+
+    return (
+        <select disabled={disabled} onChange={onChange} className="border border-gray-300 p-2 rounded-md">
+            {times.map((time, index) => (
+                <option key={index} value={time}>{time}</option>
+            ))}
+        </select>
+    );
+};
+
 const AvailabilityForm = () => {
     const daysOfWeek = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
     const [availability, setAvailability] = useState(
@@ -35,6 +53,12 @@ const AvailabilityForm = () => {
         console.log('Availability: ', availability);
     };
 
+
+    const validateTime = (day, index) => {
+        const slot = availability[day][index];
+        return slot.startTime > slot.endTime;
+    };
+
     return (
         <div className="bg-gray-100 p-6 rounded-lg shadow-lg w-1/2 mx-auto">
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -45,9 +69,10 @@ const AvailabilityForm = () => {
                             {availability[day].map((slot, index) => (
                                 <div key={index} className="flex items-center space-x-2 mb-4">
                                     <input type="checkbox" id={`${day}-${index}`} value={day} checked={slot.selected} onChange={handleDayChange(day, index)} className="mr-2" />
-                                    <input type="time" value={slot.startTime} onChange={handleTimeChange(day, index, 'startTime')} disabled={!slot.selected} className="border border-gray-300 p-2 rounded-md" />
-                                    <input type="time" value={slot.endTime} onChange={handleTimeChange(day, index, 'endTime')} disabled={!slot.selected} className="border border-gray-300 p-2 rounded-md" />
-                                    {index > 0 && <button type="button" onClick={() => deleteTimeSlot(day, index)} className="ml-2 bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Delete</button>}
+                                    <TimeSelect disabled={!slot.selected} value={slot.startTime} onChange={handleTimeChange(day, index, 'startTime')} />
+                                    <TimeSelect disabled={!slot.selected} value={slot.endTime} onChange={handleTimeChange(day, index, 'endTime')} />
+                                    {validateTime(day, index) && <p className="text-red-500">Start time must be before end time</p>}
+                                    {index > 0 && <button type="button" onClick={() => deleteTimeSlot(day, index)} className="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">X</button>}
                                 </div>
                             ))}
                         </div>
