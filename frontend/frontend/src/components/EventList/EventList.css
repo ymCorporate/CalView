@@ -1,0 +1,17 @@
+.event-list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.event-box {
+    width: 30%;
+    border: 5px solid #3ae917;
+    border-radius: 100px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.EventName, .Duration, .Location {
+    color: #05020a;
+}
