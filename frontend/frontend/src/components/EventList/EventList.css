@@ -15,3 +15,20 @@
 .EventName, .Duration, .Location {
     color: #05020a;
 }
+
+.create-event-button {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 20px 0;
+    background-color: #007BFF;
+    /* align-items: center; */
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .create-event-button:hover {
+    background-color: #0056b3;
+  }
