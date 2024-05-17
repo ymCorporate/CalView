@@ -1,0 +1,36 @@
+/* For the Calendar component */
+.calendar {
+    /* Container */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    border: 2px solid gray;
+    border-radius: 0.5rem;
+
+    /* Calendar Grid */
+    .react-calendar {
+        width: 400px;
+        max-width: 100%;
+        background: white;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15);
+    }
+
+    .react-calendar__month-view__days__day--weekend {
+        /* Style for the weekend dates */
+        color: red;
+    }
+
+    .react-calendar__tile--active {
+        /* Style for the selected date */
+        background: blue;
+        color: white;
+    }
+
+    .react-calendar__navigation {
+        /* Style for the navigation bar */
+        background: lightgray;
+    }
+}
