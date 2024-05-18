@@ -1,9 +1,12 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import CreateEvent from "./components/CreateEvent/CreateEvent.js";
 import EventList from "./components/EventList/EventList.js";
+import Login from "./components/login/Login.js";
+import EventDetails from "./components/EventDetails/EventDetails.js";
+import AvailabilityForm from "./components/Availability/Avaiblity.js";
 
-import "./App.css"
+import "./App.css";
 
 function App() {
   return (
@@ -14,10 +17,12 @@ function App() {
 
     <Router>
       <div className="App">
-        <Link to="/create" className="create-event-button">Create New Event</Link>
         <Routes>
           <Route path="/create" element={<CreateEvent />} />
-          <Route path="/" element={<EventList />} />
+          <Route path="/event_list" element={<EventList />} />
+          <Route path="/events/:eventName" element={<EventDetails />} />
+          <Route path="/" element={<Login/>}/>
+          <Route path="/avability" element={<AvailabilityForm />}/>
         </Routes>
       </div>
     </Router>
