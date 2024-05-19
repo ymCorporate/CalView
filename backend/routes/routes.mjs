@@ -44,7 +44,7 @@ router.post('/events/create', new_event.create_event);
 // For Get Event
 router.get('/events', get_event.get_events);
 
-// For Get Event Deatils
+// For Get Event Details
 router.get('/events/:eventName', particular_event.get_particular_event);
 
 // For Edit Event Details

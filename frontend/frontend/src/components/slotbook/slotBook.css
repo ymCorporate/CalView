@@ -1,0 +1,173 @@
+/* Container for the card */
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+}
+
+/* Card styling */
+.card {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 800px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.card h2 {
+    margin-bottom: 20px;
+    font-size: 1.5em;
+    color: #333;
+}
+
+/* Content container inside the card */
+.content-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/* Organizer info inside the content container */
+.organizer-info {
+    width: 20%;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+/* Calendar container inside the content container */
+.calendar-container {
+    /*width: 35%;*/
+    /*overflow-x: hidden;*/
+    width: 35%;
+    border-right: 1px solid #ddd;
+    padding-right: 20px;
+    margin-right: 20px;
+}
+
+.react-calendar {
+    width: 100%;
+    border: none;
+}
+
+/* Existing styles (adjust as necessary) */
+.react-calendar__month-view__days {
+    height: 260px;
+}
+
+.react-calendar__navigation {
+    color: #3d3d3d;
+    padding-bottom: 20px;
+}
+
+.react-calendar__navigation__label {
+    border: none;
+    background-color: white;
+}
+
+.react-calendar__navigation__prev-button,
+.react-calendar__navigation__next-button {
+    border: none;
+    background-color: white;
+}
+
+.react-calendar__navigation__prev2-button,
+.react-calendar__navigation__next2-button {
+    display: none;
+}
+
+.react-calendar__month-view__weekdays {
+    color: black;
+    font-weight: bold;
+    padding-left: 20px;
+}
+
+.react-calendar__navigation button {
+    font-size: 1em;
+}
+
+.react-calendar__month-view__weekdays__weekday {
+    padding-inline-start: 2px;
+    border: none;
+}
+
+abbr[title] {
+    text-decoration: none;
+}
+
+.react-calendar__month-view__days__day--neighboringMonth {
+    visibility: hidden;
+}
+
+.react-calendar__month-view__days__day {
+    border: none;
+    background-color: white;
+    padding: 10px;
+    font-size: 16px;
+    color: gray;
+}
+
+.react-calendar__tile {
+    padding: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.react-calendar__tile--active {
+    background: #f5d0c4;
+    border-radius: 30px;
+    line-height: 10px;
+    color: #ef6234;
+    cursor: pointer;
+}
+
+.react-calendar__tile--hover {
+    background: #ef6234;
+    border-radius: 30px;
+    line-height: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+.react-calendar button:enabled:focus {
+    background: #ef6234;
+    border-radius: 30px;
+    line-height: 10px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Styles for the slot booking page */
+.slot-booking-page {
+    width: 35%;
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+.slot-booking-page h2 {
+    margin-bottom: 10px;
+}
+
+.slot-booking-page p {
+    margin-bottom: 5px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.slot-booking-page p:hover {
+    background-color: #f5f5f5;
+}
