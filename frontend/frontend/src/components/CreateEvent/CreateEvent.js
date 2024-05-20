@@ -119,7 +119,7 @@ const CreateEvent = () => {
           )}
           </label>
         </div>
-test
+        {/*test*/}
 
         <div className="display-container">
           <h2>Event Details</h2>
