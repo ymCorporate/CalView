@@ -10,6 +10,8 @@ import { VerifyJWToken } from '../logics/VerifyJWT/verifyJWT.mjs';
 import { ParticularEventDetails } from '../logics/EventDetails/eventDetail.mjs';
 import { EditParticularEventDetails } from '../logics/EditEvent/editEvent.mjs';
 import { setAvailability } from '../logics/Availability/setAvailQueries.mjs';
+import { CreateUser } from '../logics/Register/registerUser.mjs';
+import { GetSlots } from '../logics/SelectSlot/slotSelect.mjs';
 
 // const auth_logic = new AuthLogic();
 // const norm_routes = new NormRoutes();
@@ -22,11 +24,13 @@ const jwt_verify = new VerifyJWToken();
 const particular_event = new ParticularEventDetails();
 const edit_Event = new EditParticularEventDetails();
 const availability = new setAvailability();
+const insert_user = new CreateUser();
+const getSlot = new GetSlots();
 const router = express.Router();
 
 
-// // For signup
-// router.post('/signup', auth_logic.insertSignupUser);
+// For signup
+router.post('/register', insert_user.create_user);
 
 // For login
 router.post('/login', login_user.login);
@@ -52,6 +56,13 @@ router.put('/events/:eventName', edit_Event.edit_particular_event);
 
 // For Set Availability
 router.post('/events/availability/create/:eventName', availability.set_availability);
+router.post('/events/availability/delete/:eventName', availability.delete_availability);
+
+// For Get Slots
+
+router.get('/events/slots/:dayofWeek/:eventName', getSlot.get_slots);
+
+
 
 
 export {router};

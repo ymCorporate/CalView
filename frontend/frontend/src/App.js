@@ -5,6 +5,7 @@ import EventList from "./components/EventList/EventList.js";
 import Login from "./components/login/Login.js";
 import EventDetails from "./components/EventDetails/EventDetails.js";
 import AvailabilityForm from "./components/Availability/Avaiblity.js";
+import CalendarReact from "./components/slotbook/slotbook.js";
 
 import "./App.css";
 
@@ -23,6 +24,7 @@ function App() {
           <Route path="/events/:eventName" element={<EventDetails />} />
           <Route path="/" element={<Login/>}/>
           <Route path="/avability" element={<AvailabilityForm />}/>
+          <Route path="/booking/:eventName" element={<CalendarReact />}/>
         </Routes>
       </div>
     </Router>

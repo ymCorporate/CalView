@@ -49,9 +49,11 @@ export class setAvailability {
     }
     async delete_availability(req, res) {
         const { day, startTime } = req.body;
+        const {eventName} = req.params;
+        console.log("*************************")
         console.log(req.body)
         try {
-            const data = await client.request(new_availability.deleteAvailability(), { day, startTime });
+            const data = await client.request(new_availability.deleteAvailability(), { day, startTime, eventName });
             res.json({ success: true });
         } catch (error) {
             console.error('Error occurred while deleting slot:', error);

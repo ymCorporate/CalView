@@ -60,16 +60,17 @@ const EventList = () => {
           </div>
         
           <div className="event-list">
-            
-                    
-              {events.map((event) => (
-                  <Link key={event.event_name} to={`/events/${event.event_name}`} className="event-box">
-                  <h2 className='EventName'>{event.event_name}</h2>
-                  <p className='Duration'><strong>Duration:</strong> {event.duration} minutes</p>
-                  <p className='Location'><strong>Location:</strong> {event.location_type}: {event.location_detail}</p>                
+
+            {events.map((event) => (
+                <div key={event.event_name} className="event-box">
+                  <Link to={`/events/${event.event_name}`}>
+                    <h2 className='EventName'>{event.event_name}</h2>
+                    <p className='Duration'><strong>Duration:</strong> {event.duration} minutes</p>
+                    <p className='Location'><strong>Location:</strong> {event.location_type}: {event.location_detail}</p>
                   </Link>
-              ))}
-              
+                  <Link to={`/booking/${event.event_name}`} className="booking-link">View Booking Page</Link>
+                </div>
+            ))}
           </div>
         </div>
       );
