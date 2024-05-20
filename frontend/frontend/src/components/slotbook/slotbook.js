@@ -1,25 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
-//import { useHistory } from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 import './slotbook.css';
 
 function CalendarReact({ time }) {
     const [date, setDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState('');
     const [availableSlots, setAvailableSlots] = useState([]);
-    //const history = useHistory();
-
+    //const { eventName } = useParams(); // Get the event name from the URL
     const selectedDateSetter = (value) => {
-        let path = `/user/15min/date`;
-        //history.push(path);
-        setSelectedDate(value.toDateString()); // Use the date value directly
-        // Fetch available slots from Hasura backend here
-        // Update the availableSlots state with the fetched data
-    };
-
-    const tileDisabled = ({date, view}) => {
-        // Disable tiles in month view and past dates
-        return view === 'month' && date < new Date().setHours(0, 0, 0, 0);
+        const selectedDay = value.getDate(); // Get the day of the month
+        setSelectedDate(selectedDay.toString()); // Use the day value directly
     };
 
     return (
@@ -36,7 +28,7 @@ function CalendarReact({ time }) {
                         <Calendar
                             onChange={selectedDateSetter}
                             value={date}
-                            tileDisabled={tileDisabled}
+                            minDate={new Date()} // Disable past dates
                         />
                     </div>
                     {selectedDate && (
@@ -44,7 +36,9 @@ function CalendarReact({ time }) {
                             <h2>Available slots for {selectedDate}:</h2>
                             {availableSlots.length > 0 ? (
                                 availableSlots.map((slot, index) => (
-                                    <p key={index}>{slot}</p>
+                                    <div key={index} className="slot-box">
+                                        <p>{slot.start_time} - {slot.end_time}</p>
+                                    </div>
                                 ))
                             ) : (
                                 <p>No slots available.</p>

@@ -48,7 +48,7 @@ export class setAvailability {
         //res.status(200).json({success: "availability inserted"});
     }
     async delete_availability(req, res) {
-        const { day, startTime } = req.body;
+        const { day, startTime ,eventName } = req.body;
         console.log(req.body)
         try {
             const data = await client.request(new_availability.deleteAvailability(), { day, startTime });

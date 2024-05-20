@@ -15,10 +15,10 @@ export class SetAvailabilitySchema {
 
     deleteAvailability() {
         return `
-          mutation DeleteAvailability($day: String!, $startTime: String!) {
-            delete_availability(where: {day: {_eq: $day}, start_time: {_eq: $startTime}}) {
-                affected_rows
-            }
-        }`;
+          mutation DeleteAvailability($day: String!, $startTime: String!, $eventName: String!) {
+           delete_availability(where: {day: {_eq: $day}, start_time: {_eq: $startTime}, event_name: {_eq: $eventName}}) {
+        affected_rows
+    }
+}`;
     }
 }
