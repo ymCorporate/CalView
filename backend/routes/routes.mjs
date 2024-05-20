@@ -10,7 +10,8 @@ import { VerifyJWToken } from '../logics/VerifyJWT/verifyJWT.mjs';
 import { ParticularEventDetails } from '../logics/EventDetails/eventDetail.mjs';
 import { EditParticularEventDetails } from '../logics/EditEvent/editEvent.mjs';
 import { setAvailability } from '../logics/Availability/setAvailQueries.mjs';
-import {getAvailability} from "../logics/slotbook/getAvailQueries.mjs";
+
+import {GetSlots} from "../logics/slotbook/getAvailQueries.mjs";
 
 // const auth_logic = new AuthLogic();
 // const norm_routes = new NormRoutes();
@@ -23,7 +24,7 @@ const jwt_verify = new VerifyJWToken();
 const particular_event = new ParticularEventDetails();
 const edit_Event = new EditParticularEventDetails();
 const availability = new setAvailability();
-const slot = new getAvailability()
+const getSlot = new GetSlots();
 const router = express.Router();
 
 
@@ -59,9 +60,8 @@ router.post('/events/availability/create/:eventName', availability.set_availabil
 router.post('/events/availability/create/:eventName', availability.delete_availability);
 
 //For get availability
-router.post('/user/:eventName', slot.get_availability);
-
-router.get('/user/slot/:day/:eventName', slot.get_availability);
-
+//router.get('/booking/:eventName/:selectedDay', slot.get_availability);
+router.get('/events/slots/:dayofWeek/:eventName', getSlot.get_slots);
+//console.log(getAvailability);
 
 export {router};

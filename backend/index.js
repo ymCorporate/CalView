@@ -4,7 +4,8 @@ import cors from 'cors';
 import { router } from './routes/routes.mjs';
 
 const app = express();
-app.use(cookieParser());
+express.urlencoded()
+//app.use(cookieParser());
 app.use(cors({
     origin: 'http://localhost:3000', // replace with your React app origin
     credentials: true,
