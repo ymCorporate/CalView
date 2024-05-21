@@ -46,8 +46,6 @@
 
 /* Calendar container inside the content container */
 .calendar-container {
-    /*width: 35%;*/
-    /*overflow-x: hidden;*/
     width: 35%;
     border-right: 1px solid #ddd;
     padding-right: 20px;
@@ -59,7 +57,6 @@
     border: none;
 }
 
-/* Existing styles (adjust as necessary) */
 .react-calendar__month-view__days {
     height: 260px;
 }
@@ -182,4 +179,16 @@ abbr[title] {
     margin-bottom: 10px;
     border-radius: 5px;
     background-color: #f0f0f0;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.slot-box p {
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
+    font-size: 16px;
+    color: #333;
+}
+
+.slot-box:hover {
+    background-color: #adff2f; /* Lighter blue for hover effect */
 }

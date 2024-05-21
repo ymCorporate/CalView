@@ -59,6 +59,18 @@ export class setAvailability {
             res.json({ success: false });
         }
     }
+
+    // async get_availability(req, res) {
+    //     const eventName = req.params.eventName;
+    //     try {
+    //         const data = await client.request(new_availability.getAvailability(), { eventName });
+    //         res.json({ success: true, availability: data.availability });
+    //     } catch (error) {
+    //         console.error('Error occurred while fetching availability:', error);
+    //         res.json({ success: false });
+    //     }
+    // }
+
 }
 
 

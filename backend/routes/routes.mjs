@@ -67,4 +67,6 @@ router.post(`/events/availability/delete/:eventName`, availability.delete_availa
 router.get('/events/slots/:dayofWeek/:eventName', getSlot.get_slots);
 //console.log(getAvailability);
 
+//router.get('/events/availability/:eventName', availability.get_availability);
+
 export {router};
