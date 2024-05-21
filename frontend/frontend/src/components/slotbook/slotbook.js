@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Calendar from 'react-calendar';
 import { GraphQLClient } from 'graphql-request';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import { GET_SLOTS } from './query';
 import 'react-calendar/dist/Calendar.css';
 import './slotBook.css';
@@ -12,43 +12,29 @@ const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
     },
 });
 
-const splitInto30MinSlots = (startTime, endTime) => {
-    const slots = [];
-    let start = new Date(`1970-01-01T${startTime}:00`);
-    const end = new Date(`1970-01-01T${endTime}:00`);
-
-    while (start < end) {
-        let endSlot = new Date(start);
-        endSlot.setMinutes(start.getMinutes() + 30);
-        if (endSlot > end) {
-            endSlot = end;
-        }
-        slots.push({
-            start: start.toTimeString().substring(0, 5),
-            end: endSlot.toTimeString().substring(0, 5),
-        });
-        start = endSlot;
-    }
-
-    return slots;
-};
-
-function CalendarReact({ time }) {
-    const { eventName } = useParams(); // Get the event name from the URL
+function CalendarPage() {
+    const { eventName } = useParams();
+    const navigate = useNavigate();
     const [date, setDate] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedDayOfWeek, setSelectedDayOfWeek] = useState('');
     const [availableSlots, setAvailableSlots] = useState([]);
 
-    const fetchSlots = async (dayOfWeek) => {
+    useEffect(() => {
+        if (selectedDayOfWeek && selectedDate) {
+            fetchSlots(selectedDayOfWeek, selectedDate);
+        }
+    }, [selectedDayOfWeek, selectedDate]);
+
+    const fetchSlots = async (dayOfWeek, date) => {
         try {
             const response = await graphqlClient.request(GET_SLOTS, {
                 day: dayOfWeek.toUpperCase(),
                 eventName,
+                //date: date.toISOString().split('T')[0],
             });
-            const slots = response.availability.flatMap(slot =>
-                splitInto30MinSlots(slot.start_time, slot.end_time)
-            );
+
+            const slots = generateTimeSlots(response.availability, response.bookedSlots);
             setAvailableSlots(slots);
         } catch (error) {
             console.error('Error fetching slots:', error);
@@ -56,13 +42,44 @@ function CalendarReact({ time }) {
         }
     };
 
+    const generateTimeSlots = (availability, bookedSlots) => {
+        const slots = [];
+        const bookedTimes = bookedSlots.map(slot => ({
+            start: new Date(`1970-01-01T${slot.startTime}`),
+            end: new Date(`1970-01-01T${slot.endTime}`)
+        }));
+
+        availability.forEach((slot) => {
+            const start = new Date(`1970-01-01T${slot.start_time}`);
+            const end = new Date(`1970-01-01T${slot.end_time}`);
+            while (start < end) {
+                const endTime = new Date(start.getTime() + 30 * 60000); // Add 30 minutes
+                const isBooked = bookedTimes.some(
+                    booked => start >= booked.start && endTime <= booked.end
+                );
+                if (!isBooked) {
+                    slots.push({
+                        startTime: start.toTimeString().substr(0, 5),
+                        endTime: endTime.toTimeString().substr(0, 5),
+                    });
+                }
+                start.setTime(endTime.getTime());
+            }
+        });
+        return slots;
+    };
+
     const selectedDateSetter = (value) => {
         const options = { weekday: 'short' };
         const selectedDay = value.getDate();
-        const dayOfWeek = value.toLocaleDateString('en-US', options).toUpperCase(); // Get the day of the week in uppercase
-        setSelectedDate(selectedDay.toString());
+        const dayOfWeek = value.toLocaleDateString('en-US', options).toUpperCase();
+        setSelectedDate(value);
         setSelectedDayOfWeek(dayOfWeek);
-        fetchSlots(dayOfWeek);
+    };
+
+    const handleSlotClick = (slot) => {
+        const slotDetails = `${slot.startTime}-${slot.endTime}-${selectedDayOfWeek}-${selectedDate.toISOString().split('T')[0]}`;
+        navigate(`/book/${eventName}/${slotDetails}`);
     };
 
     return (
@@ -79,17 +96,17 @@ function CalendarReact({ time }) {
                         <Calendar
                             onChange={selectedDateSetter}
                             value={date}
-                            minDate={new Date()} // Disable past dates
-                            formatShortWeekday={(locale, date) => date.toLocaleDateString(locale, { weekday: 'short' })} // Format for day names
+                            minDate={new Date()}
+                            formatShortWeekday={(locale, date) => date.toLocaleDateString(locale, { weekday: 'short' })}
                         />
                     </div>
                     {selectedDate && (
                         <div className="slot-booking-page">
-                            <h2>Available slots for {selectedDate} ({selectedDayOfWeek}):</h2>
+                            <h2>Available slots for {selectedDate.toLocaleDateString()} ({selectedDayOfWeek}):</h2>
                             {availableSlots.length > 0 ? (
                                 availableSlots.map((slot, index) => (
-                                    <div key={index} className="slot-box">
-                                        <p>{slot.start} - {slot.end}</p>
+                                    <div key={index} className="slot-box" onClick={() => handleSlotClick(slot)}>
+                                        <p>{slot.startTime} - {slot.endTime}</p>
                                     </div>
                                 ))
                             ) : (
@@ -103,12 +120,12 @@ function CalendarReact({ time }) {
     );
 }
 
-export default CalendarReact;
+export default CalendarPage;
 
 // import React, { useState } from 'react';
 // import Calendar from 'react-calendar';
 // import { GraphQLClient } from 'graphql-request';
-// import { useParams } from 'react-router-dom';
+// import { useParams, useNavigate } from 'react-router-dom';
 // import { GET_SLOTS } from './query';
 // import 'react-calendar/dist/Calendar.css';
 // import './slotBook.css';
@@ -119,8 +136,9 @@ export default CalendarReact;
 //     },
 // });
 //
-// function CalendarReact({ time }) {
-//     const { eventName } = useParams(); // Get the event name from the URL
+// function CalendarPage() {
+//     const { eventName } = useParams();
+//     const navigate = useNavigate();
 //     const [date, setDate] = useState(new Date());
 //     const [selectedDate, setSelectedDate] = useState('');
 //     const [selectedDayOfWeek, setSelectedDayOfWeek] = useState('');
@@ -142,10 +160,34 @@ export default CalendarReact;
 //     const selectedDateSetter = (value) => {
 //         const options = { weekday: 'short' };
 //         const selectedDay = value.getDate();
-//         const dayOfWeek = value.toLocaleDateString('en-US', options).toUpperCase(); // Get the day of the week in uppercase
+//         const dayOfWeek = value.toLocaleDateString('en-US', options).toUpperCase();
 //         setSelectedDate(selectedDay.toString());
 //         setSelectedDayOfWeek(dayOfWeek);
 //         fetchSlots(dayOfWeek);
+//     };
+//
+//     const handleSlotClick = (startTime, endTime) => {
+//         const slotDetails = `${startTime}-${endTime}-${selectedDayOfWeek}-${selectedDate}`;
+//         navigate(`/book/${eventName}/${slotDetails}`);
+//     };
+//
+//     const generateTimeSlots = (slot) => {
+//         const start = new Date(`1970-01-01T${slot.start_time}`);
+//         const end = new Date(`1970-01-01T${slot.end_time}`);
+//         const timeSlots = [];
+//
+//         while (start < end) {
+//             const endSlot = new Date(start.getTime() + 30 * 60000);
+//             if (endSlot <= end) {
+//                 timeSlots.push({
+//                     start_time: start.toTimeString().substr(0, 5),
+//                     end_time: endSlot.toTimeString().substr(0, 5),
+//                 });
+//             }
+//             start.setMinutes(start.getMinutes() + 30);
+//         }
+//
+//         return timeSlots;
 //     };
 //
 //     return (
@@ -162,17 +204,23 @@ export default CalendarReact;
 //                         <Calendar
 //                             onChange={selectedDateSetter}
 //                             value={date}
-//                             minDate={new Date()} // Disable past dates
-//                             formatShortWeekday={(locale, date) => date.toLocaleDateString(locale, { weekday: 'short' })} // Format for day names
+//                             minDate={new Date()}
+//                             formatShortWeekday={(locale, date) => date.toLocaleDateString(locale, { weekday: 'short' })}
 //                         />
 //                     </div>
 //                     {selectedDate && (
 //                         <div className="slot-booking-page">
 //                             <h2>Available slots for {selectedDate} ({selectedDayOfWeek}):</h2>
 //                             {availableSlots.length > 0 ? (
-//                                 availableSlots.map((slot, index) => (
+//                                 availableSlots.flatMap(generateTimeSlots).map((slot, index) => (
 //                                     <div key={index} className="slot-box">
-//                                         <p>{slot.start_time} - {slot.end_time}</p>
+//                                         <div className="slot-half">{slot.start_time}</div>
+//                                         <div
+//                                             className="slot-half next-half"
+//                                             onClick={() => handleSlotClick(slot.start_time, slot.end_time)}
+//                                         >
+//                                             Next
+//                                         </div>
 //                                     </div>
 //                                 ))
 //                             ) : (
@@ -186,4 +234,5 @@ export default CalendarReact;
 //     );
 // }
 //
-// export default CalendarReact;
+// export default CalendarPage;
+//
