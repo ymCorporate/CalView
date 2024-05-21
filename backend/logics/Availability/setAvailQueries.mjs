@@ -9,7 +9,6 @@ const new_availability = new SetAvailabilitySchema();
 
 const hasuraEndpoint = 'http://localhost:8080/v1/graphql';
 const adminSecret = '123';
-
 const client = new GraphQLClient(hasuraEndpoint, {
     headers: {
         'x-hasura-admin-secret': adminSecret
@@ -25,8 +24,8 @@ export class setAvailability {
             slots.forEach(async slot => {  // Note: Added 'async' here
                 const { startTime, endTime } = slot;
                 console.log(day, startTime, endTime);
-                const {eventName} = req.params;
-            console.log(req.params);
+                const eventName = req.params.eventName;
+            //console.log(req.params);
                 // Here you can call your function to insert the data into Hasura
 
                 try {
@@ -48,10 +47,12 @@ export class setAvailability {
         //res.status(200).json({success: "availability inserted"});
     }
     async delete_availability(req, res) {
-        const { day, startTime ,eventName } = req.body;
-        console.log(req.body)
+        const { day, startTime  } = req.body;
+        //console.log(req.body)
+        const eventName = req.params.eventName
+        console.log(eventName)
         try {
-            const data = await client.request(new_availability.deleteAvailability(), { day, startTime });
+            const data = await client.request(new_availability.deleteAvailability(), { day, startTime ,eventName });
             res.json({ success: true });
         } catch (error) {
             console.error('Error occurred while deleting slot:', error);

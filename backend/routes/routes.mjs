@@ -2,6 +2,7 @@ import express from 'express';
 // import { AuthLogic } from '../authintication/signup_login.mjs';
 // import { NormRoutes } from '../normRoutes/linkpage.mjs';
 // import { VerifyJwt } from '../verifyJWT/verifyjwt.mjs';
+import bodyParser from 'body-parser';
 
 import { CreateEvent } from '../logics/CreateEvent/createEvent.mjs';
 import { GetEvent } from '../logics/GetEvents/getEvents.mjs';
@@ -57,10 +58,12 @@ router.put('/events/:eventName', edit_Event.edit_particular_event);
 router.post('/events/availability/create/:eventName', availability.set_availability);
 
 //delete availability
-router.post('/events/availability/create/:eventName', availability.delete_availability);
+router.post(`/events/availability/delete/:eventName`, availability.delete_availability);
+// router.post(`events/availability/delete/:eventName`,(req,res)=>{
+//     console.log(req.body)
+// });
 
 //For get availability
-//router.get('/booking/:eventName/:selectedDay', slot.get_availability);
 router.get('/events/slots/:dayofWeek/:eventName', getSlot.get_slots);
 //console.log(getAvailability);
 

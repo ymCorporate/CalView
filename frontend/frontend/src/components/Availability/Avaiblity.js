@@ -27,6 +27,7 @@ const AvailabilityForm = () => {
     const [availability, setAvailability] = useState(
         daysOfWeek.reduce((acc, day) => ({ ...acc, [day]: [{ selected: false, startTime: '', endTime: '' }] }), {})
     );
+    //console.log(eventName);
 
     const handleDayChange = (day, index) => (event) => {
         const updatedDaySlots = [...availability[day]];
@@ -47,11 +48,12 @@ const AvailabilityForm = () => {
     const deleteTimeSlot = async (day, index) => {
         if (index > 0) { // Prevent deletion of the first time slot
             const slotToDelete = availability[day][index];
-            // console.log(slotToDelete);
-            // console.log(day);
+            console.log(slotToDelete);
+            console.log(day);
+            console.log(eventName)
             try {
                 // Send a DELETE request to your Node.js backend
-                const response = await axios.post('http://localhost:4321/events/delete', { day: day, startTime: slotToDelete.startTime });  // replace with your API endpoint
+                const response = await axios.post(`http://localhost:6541/events/availability/delete/${eventName}`, { day: day, startTime: slotToDelete.startTime});  // replace with your API endpoint
                 console.log(response)
                 if (response.data.success) {
                     console.log('Slot deleted successfully');
@@ -102,7 +104,7 @@ const AvailabilityForm = () => {
         console.log('Filtered Availability: ', filteredAvailability);
         try{
             // Send a POST request to your Node.js backend
-            const response = await axios.post(`http://localhost:6541/events/availability/create/${eventName}`, filteredAvailability)  // replace with your API endpoint
+            const response = await axios.post(`http://localhost:6541/events/availability/create/${eventName}`, filteredAvailability) /// // replace with your API endpoint
             if (response.data.success) {
                 alert('availability set successfully!');
             } else {
