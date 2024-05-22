@@ -7,6 +7,8 @@ import EventDetails from "./components/EventDetails/EventDetails.js";
 import AvailabilityForm from "./components/Availability/Avaiblity.js";
 import CalendarPage from "./components/slotbook/slotbook";
 import BookingPage from "./components/confirmpage/confirmpage";
+import SuccessPage from "./components/successpage/successpage";
+
 import "./App.css";
 
 function App() {
@@ -21,6 +23,7 @@ function App() {
             <Route path="/availability" element={<AvailabilityForm />} />
             <Route path="/booking/:eventName" element={<CalendarPage />} />
             <Route path="/book/:eventName/:slotDetails" element={<BookingPage />} />
+              <Route path="/success" element={<SuccessPage />} />
           </Routes>
         </div>
       </Router>
