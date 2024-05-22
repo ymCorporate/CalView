@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Calendar from 'react-calendar';
-
 import { GraphQLClient } from 'graphql-request';
 import { useParams, useNavigate } from 'react-router-dom';
-import { GET_SLOTS } from './query';
+import { GET_SLOTS, GET_Duration, OrganizerName } from './query';
 import 'react-calendar/dist/Calendar.css';
 import './slotBook.css';
 
@@ -17,6 +16,8 @@ function CalendarPage() {
     const { eventName } = useParams();
     const navigate = useNavigate();
     const [date, setDate] = useState(new Date());
+    const [organizerName, setOrganizerName] = useState({});
+    const [duration, setDuration] = useState('');
     const [selectedDate, setSelectedDate] = useState('');
     const [selectedDayOfWeek, setSelectedDayOfWeek] = useState('');
     const [availableSlots, setAvailableSlots] = useState([]);
@@ -68,6 +69,37 @@ function CalendarPage() {
         }
     };
 
+    useEffect(() => {
+        const fetchEvents = async () => {
+          try {
+            const response = await graphqlClient.request(GET_Duration, {eventName});
+            // console.log(typeof(response.kalenview_create_events[0].duration));
+            setDuration(response.kalenview_create_events[0].duration);
+          } catch (error){
+            console.error('Failed to fetch Duration:', error);
+          }
+        };
+    
+        fetchEvents();
+      }, [])
+
+    useEffect(() => {
+        const fetchEvents = async () => {
+          try {
+            const response = await graphqlClient.request(OrganizerName);
+            // console.log(response.kalenview[0]);
+            setOrganizerName(response.kalenview[0]);
+          } catch (error){
+            console.error('Failed to fetch Organizer Name:', error);
+          }
+        };
+    
+        fetchEvents();
+      }, [])
+
+    // const theDuration = duration;
+    // console.log(`Duration is ${theDuration}`);
+
     const handleSlotClick = (startTime, endTime) => {
         const [year, month, day] = selectedDate.split('-');
         const formattedDisplayDate = `${day}-${month}-${year}`; // Format for display: DD-MM-YYYY
@@ -86,7 +118,7 @@ function CalendarPage() {
         };
 
         while (start < end) {
-            const endSlot = new Date(start.getTime() + 30 * 60000);
+            const endSlot = new Date(start.getTime() + duration * 60000);
             if (endSlot <= end) {
                 const slotStart = toMinutes(start.toTimeString().substr(0, 5));
                 const slotEnd = toMinutes(endSlot.toTimeString().substr(0, 5));
@@ -117,15 +149,18 @@ function CalendarPage() {
                 <h2>Select a Date & Time</h2>
                 <div className="content-container">
                     <div className="organizer-info">
-                        <h3>Organizer Name</h3>
+                        <h2>Event Name:</h2>
                         <p>{eventName}</p>
-                        <p>Duration</p>
+                        <h3>Organizer Name:</h3>
+                        <p>{organizerName.first_name +" "+ organizerName.last_name}</p>
+                        <h3>Duration:</h3>
+                        <p>{duration}</p>
+
                     </div>
                     <div className="calendar-container">
                         <Calendar
                             onChange={selectedDateSetter}
                             value={date}
-
                             minDate={new Date()}
                             formatShortWeekday={(locale, date) => date.toLocaleDateString(locale, { weekday: 'short' })}
                         />
@@ -301,4 +336,3 @@ export default CalendarPage;
 //
 // export default CalendarPage;
 //
-

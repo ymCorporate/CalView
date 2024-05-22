@@ -2,8 +2,18 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import Cookies from 'js-cookie';
+import { GraphQLClient } from 'graphql-request';
 import { useNavigate } from 'react-router-dom';
+import { get_all_events } from './EventListQuries';
 import './EventList.css';
+
+const jwt = Cookies.get('jwt');
+
+const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
+    headers: {
+        'x-hasura-admin-secret': '123'
+    },
+});
 
 const EventList = () => {
   const [events, setEvents] = useState([]);
@@ -13,9 +23,9 @@ const EventList = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await axios.get('http://localhost:6541/events');
-        //console.log(response.data);
-        setEvents(response.data);
+        const response = await graphqlClient.request(get_all_events, {});
+        // console.log(response.kalenview_create_events);
+        setEvents(response.kalenview_create_events);
       } catch (error){
         console.error('Failed to fetch events:', error);
       }
@@ -47,11 +57,12 @@ const EventList = () => {
     };
 
     JWTVERIFY()
+    
   },[]);
 
 
-  // console.log(`JWTverify: ${JWTverify}`);
-  if(JWTverify){
+  console.log(`JWTverify: ${JWTverify}`);
+
 
       return (
         <div>
@@ -75,15 +86,8 @@ const EventList = () => {
         </div>
       );
 
-    }
-    else {
-      return (
-        <div>
-          <h2>You are not authenticated. Please log in.</h2>
-          {navigate('/')}
-        </div>
-      );
-    }
+    
+
 };
 
 export default EventList;

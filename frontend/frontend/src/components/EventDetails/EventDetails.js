@@ -75,7 +75,7 @@ const EventDetails = () => {
               <form onSubmit={handleEditSubmit}>
                 <label>
                   Event Name:
-                  <input type="text" name="event_name" value={editEvent.event_name} onChange={handleEditChange} />
+                  <input type="text" name="event_name" value={editEvent.event_name} readOnly />
                 </label>
                 <label>
                   Duration:

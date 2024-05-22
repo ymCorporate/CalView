@@ -1,5 +1,3 @@
-import { gql } from 'graphql-request';
-
 export const GET_SLOTS = `
     query GetSlots($day: String!, $eventName: String!, $date: date!) {
         availability(where: {day: {_eq: $day}, event_name: {_eq: $eventName}}) {
@@ -11,6 +9,23 @@ export const GET_SLOTS = `
             end_time
         }
     }
+`;
+
+export const GET_Duration = `
+query MyQuery($eventName: String!) {
+    kalenview_create_events(where: {event_name: {_eq: $eventName}}) {
+      duration
+    }
+  }
+`;
+
+export const OrganizerName = `
+query MyQuery {
+    kalenview {
+      first_name
+      last_name
+    }
+  }
 `;
 
 
