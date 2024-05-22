@@ -21,24 +21,37 @@ function CalendarPage() {
     const [availableSlots, setAvailableSlots] = useState([]);
     const [bookedSlots, setBookedSlots] = useState([]);
 
+    // const selectedDateSetter = (value) => {
+    //     const options = { weekday: 'short' };
+    //     const dayOfWeek = value.toLocaleDateString('en-US', options).toUpperCase();
+    //     const formattedDate = value.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+    //     setSelectedDate(formattedDate);
+    //     setSelectedDayOfWeek(dayOfWeek);
+    //     fetchSlots(dayOfWeek, formattedDate);
+    // };
     const selectedDateSetter = (value) => {
-        const options = { weekday: 'short' };
-        const dayOfWeek = value.toLocaleDateString('en-US', options).toUpperCase();
-        const formattedDate = value.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+        // Normalize the date to UTC to avoid timezone issues
+        const utcDate = new Date(Date.UTC(value.getFullYear(), value.getMonth(), value.getDate()));
+
+        const options = { weekday: 'short', timeZone: 'UTC' }; // Ensure we use UTC for consistent results
+        const dayOfWeek = utcDate.toLocaleDateString('en-US', options).toUpperCase();
+        const formattedDate = utcDate.toISOString().split('T')[0]; // Format date as YYYY-MM-DD
+
         setSelectedDate(formattedDate);
         setSelectedDayOfWeek(dayOfWeek);
         fetchSlots(dayOfWeek, formattedDate);
     };
 
+
     const fetchSlots = async (dayOfWeek, formattedDate) => {
         try {
             const response = await graphqlClient.request(GET_SLOTS, {
-                // day: dayOfWeek,
-                // eventName,
-                // date: formattedDate,
-                day:"MON",
-                eventName:"gagan",
-                date:"2024-05-26"
+                day: dayOfWeek,
+                eventName,
+                date: formattedDate,
+                // day:"MON",
+                // eventName:"gagan",
+                // date:"2024-05-26"
             });
 
             // Get the available slots and booked slots
