@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
+
 import { GraphQLClient } from 'graphql-request';
 import { useParams, useNavigate } from 'react-router-dom';
 import { GET_SLOTS } from './query';
@@ -124,6 +125,7 @@ function CalendarPage() {
                         <Calendar
                             onChange={selectedDateSetter}
                             value={date}
+
                             minDate={new Date()}
                             formatShortWeekday={(locale, date) => date.toLocaleDateString(locale, { weekday: 'short' })}
                         />
@@ -299,3 +301,4 @@ export default CalendarPage;
 //
 // export default CalendarPage;
 //
+

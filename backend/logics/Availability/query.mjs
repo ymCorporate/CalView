@@ -25,10 +25,12 @@ export const UPSERT_AVAILABILITY = `
     }
 `;
 
+
 export const DELETE_AVAILABILITY = `
     mutation DeleteAvailability($day: String!, $startTime: String!, $eventName: String!) {
         delete_availability(where: { day: { _eq: $day }, start_time: { _eq: $startTime }, event_name: { _eq: $eventName } }) {
             affected_rows
         }
+
     }
 `;
