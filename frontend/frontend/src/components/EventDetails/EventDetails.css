@@ -1,0 +1,68 @@
+.event-details-container {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.event-edit, .event-details {
+  width: 48%;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+.event-edit form {
+  display: flex;
+  flex-direction: column;
+}
+
+.event-edit form label {
+  margin-bottom: 10px;
+}
+
+.event-edit form input,
+.event-edit form textarea {
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+}
+
+.event-edit form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #4CAF50;
+  color: white;
+  cursor: pointer;
+  width: 100%;
+}
+
+.event-edit form button:hover {
+  background-color: #45a049;
+}
+
+.event-details h2 {
+  margin-top: 0;
+}
+
+.edit-button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  font-size: 18px;
+  border: none;
+  border-radius: 4px;
+  background-color: #3a5fb6;
+  color: white;
+  cursor: pointer;
+  text-align: center;
+}
+
+.edit-button:hover {
+  background-color: #45a049;
+}

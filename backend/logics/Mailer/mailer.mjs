@@ -6,7 +6,7 @@ export class Mailer {
 
     async send_real_mail(req, res) {
 
-        const { userEmail, userName, day, eventName, date, startTime, endTime } = req.body;
+        const { eventType, eventDetail, userEmail, userName, day, eventName, date, startTime, endTime } = req.body;
         console.log(userEmail, userName, day, eventName, date, startTime, endTime); // testmail@test.com New Name MON abcdef 2024-05-27 15:00 15:30
 
         const config = {
@@ -34,7 +34,7 @@ export class Mailer {
                 table: {
                     data: [
                         {
-                            item: 'Date',
+                            'Event Info' : 'Date',
                             description: date
                         },
                         {
@@ -48,6 +48,14 @@ export class Mailer {
                         {
                             item: 'End Time',
                             description: endTime
+                        },
+                        {
+                            item: 'Event Location',
+                            description: eventType
+                        },
+                        {
+                            item: 'Event Description',
+                            description: eventDetail
                         }
                     ]
                 },
@@ -59,7 +67,7 @@ export class Mailer {
 
         let message = {
             from: EMAIL,
-            to: [userEmail, "other_email"],
+            to: [userEmail, "pramanickdebesh1412@gmail.com"],
             subject: `Event Reminder: ${eventName}`,
             html: mail
         }

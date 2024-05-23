@@ -1,0 +1,78 @@
+.booking-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    min-height: 100vh;
+    gap: 20px; /* Add gap between elements */
+}
+
+.organizer-info,
+.form-container {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px; /* Increase border radius for a more modern look */
+    padding: 20px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a more prominent shadow */
+    box-sizing: border-box; /* Ensure padding and border are included in element's total width and height */
+}
+
+h2 {
+    font-family: 'Arial', sans-serif; /* Use a clean, modern font */
+    color: #203acd; /* Consistent color for headers */
+    text-align: center; /* Center-align headers */
+}
+
+.form-group {
+    margin-bottom: 20px; /* Increase margin for better spacing */
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 10px; /* Increase space between label and input */
+    font-weight: bold;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px; /* Increase padding for better touch targets */
+    border-radius: 5px; /* Rounded corners for inputs */
+    border: 1px solid #ccc;
+    font-size: 16px; /* Increase font size */
+    box-sizing: border-box;
+}
+
+/* Styling for the submit button */
+button[type="submit"] {
+    width: 100%; /* Full width button */
+    padding: 15px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 18px; /* Larger font size */
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Smooth transitions */
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); /* Lift button slightly on hover */
+}
+
+/* Responsive adjustments */
+@media (min-width: 768px) {
+    .booking-container {
+        padding: 40px; /* Increase padding for larger screens */
+        gap: 30px; /* Increase gap for larger screens */
+    }
+    .organizer-info,
+    .form-container {
+        padding: 30px; /* Increase padding for larger screens */
+    }
+}
