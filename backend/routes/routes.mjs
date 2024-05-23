@@ -4,14 +4,14 @@ import express from 'express';
 // import { VerifyJwt } from '../verifyJWT/verifyjwt.mjs';
 
 import { CreateEvent } from '../logics/CreateEvent/createEvent.mjs';
-import { GetEvent } from '../logics/GetEvents/getEvents.mjs';
+// import { GetEvent } from '../logics/GetEvents/getEvents.mjs';
 import { LoginUser } from '../logics/Login/login.mjs';
 import { VerifyJWToken } from '../logics/VerifyJWT/verifyJWT.mjs';
-import { ParticularEventDetails } from '../logics/EventDetails/eventDetail.mjs';
-import { EditParticularEventDetails } from '../logics/EditEvent/editEvent.mjs';
-import { setAvailability } from '../logics/Availability/setAvailQueries.mjs';
-import { CreateUser } from '../logics/Register/registerUser.mjs';
-import { GetSlots } from '../logics/SelectSlot/slotSelect.mjs';
+// import { ParticularEventDetails } from '../logics/EventDetails/eventDetail.mjs';
+// import { EditParticularEventDetails } from '../logics/EditEvent/editEvent.mjs';
+// import { setAvailability } from '../logics/Availability/setAvailQueries.mjs';
+// import { CreateUser } from '../logics/Register/registerUser.mjs';
+// import { GetSlots } from '../logics/SelectSlot/slotSelect.mjs';
 
 import { Mailer } from '../logics/Mailer/mailer.mjs';
 
@@ -20,14 +20,14 @@ import { Mailer } from '../logics/Mailer/mailer.mjs';
 // const verify_jwt = new VerifyJwt();
 
 const new_event = new CreateEvent();
-const get_event = new GetEvent();
+//const get_event = new GetEvent();
 const login_user = new LoginUser();
 const jwt_verify = new VerifyJWToken();
-const particular_event = new ParticularEventDetails();
-const edit_Event = new EditParticularEventDetails();
-const availability = new setAvailability();
-const insert_user = new CreateUser();
-const getSlot = new GetSlots();
+// const particular_event = new ParticularEventDetails();
+// const edit_Event = new EditParticularEventDetails();
+// const availability = new setAvailability();
+// const insert_user = new CreateUser();
+// const getSlot = new GetSlots();
 const router = express.Router();
 
 const mail_message = new Mailer();
@@ -73,3 +73,4 @@ router.post('/events/create', new_event.create_event);
 
 
 export {router};
+
