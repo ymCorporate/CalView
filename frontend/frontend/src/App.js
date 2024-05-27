@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import CreateEvent from "./components/CreateEvent/CreateEvent.js";
 import EventList from "./components/EventList/EventList.js";
 import Login from "./components/login/Login.js";
-import EventDetails from "./components/EventDetails/EventDetails.js";
+import EventDetails from "./components/EventDetails/EventDetailsCopy.js";
 import AvailabilityForm from "./components/Availability/Avaiblity.js";
 import Register from "./components/Register/Register.js";
 import CalendarPage from "./components/slotbook/slotbook";

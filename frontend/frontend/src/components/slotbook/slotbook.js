@@ -174,9 +174,10 @@ function CalendarPage() {
                                         <div className="slot-half">{slot.start_time}</div>
                                         <div
                                             className="slot-half next-half"
+                                            id="half-next"
                                             onClick={() => handleSlotClick(slot.start_time, slot.end_time)}
                                         >
-                                            Next
+                                            <b>Next</b>
                                         </div>
                                     </div>
                                 ))

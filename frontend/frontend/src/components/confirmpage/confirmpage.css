@@ -4,21 +4,37 @@
     align-items: center;
     padding: 20px;
     background-color: #f8f9fa;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     gap: 20px; /* Add gap between elements */
 }
 
-.organizer-info,
+
 .form-container {
+    align-items: center;
     background-color: white;
     border: 1px solid #ddd;
     border-radius: 15px; /* Increase border radius for a more modern look */
-    padding: 20px;
+    padding: 10px;
     width: 100%;
     max-width: 600px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a more prominent shadow */
     box-sizing: border-box; /* Ensure padding and border are included in element's total width and height */
 }
+
+
+.organizer-info{
+    align-items: center;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 15px; /* Increase border radius for a more modern look */
+    padding: 10px;
+    width: 100%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a more prominent shadow */
+    box-sizing: border-box; /* Ensure padding and border are included in element's total width and height */
+}
+
+
 
 h2 {
     font-family: 'Arial', sans-serif; /* Use a clean, modern font */

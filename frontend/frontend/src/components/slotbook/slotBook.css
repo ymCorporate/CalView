@@ -222,3 +222,6 @@ abbr[title] {
     border-right: none; /* Remove border on the last half */
 }
 
+#half-next{
+    background-color: #0d73e0;
+}

@@ -82,7 +82,7 @@ function BookingPage() {
     return (
         <div className="booking-container">
             <div className="organizer-info">
-            <h3>Event Name</h3>
+                <h3>Event Name</h3>
                 <p>{eventName}</p>
                 <h3>Organizer Name</h3>
                 <p>{organizerName.first_name +" "+ organizerName.last_name}</p>
