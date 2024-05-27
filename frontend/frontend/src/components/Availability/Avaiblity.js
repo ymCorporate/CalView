@@ -167,6 +167,7 @@ const AvailabilityForm = () => {
         );
 
         try {
+            let flag= false;
             for (const [day, slots] of Object.entries(filteredAvailability)) {
                 for (const slot of slots) {
                     if (slot.selected) {
@@ -178,13 +179,18 @@ const AvailabilityForm = () => {
                         });
                         console.log(data.insert_availability_one.event_name);
 
-                        if(!(data.insert_availability_one.event_name==eventName)){
+                        if(!(data.insert_availability_one.event_name===eventName)){
                             alert(`Availability will not set for Timeline:\n${day} ${slot.startTime}\nas it is already present in Event Name:\n${data.insert_availability_one.event_name}`);
+                            flag = true;
                         }
+
                     }
                 }
             }
-            alert('Availability set successfully!');
+            if(!flag) {
+                alert('Availability set successfully!');
+            }
+            
         } catch (e) {
             console.error('Error occurred while setting availability', e);
             alert('Failed to set availability');
@@ -218,7 +224,7 @@ const AvailabilityForm = () => {
                                         <p className="text-red-500">Start time must be before end time</p>}
                                     {slot.selected && (
                                         <button type="button" onClick={() => deleteTimeSlot(day, index)}
-                                                className="ml-2 bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">X</button>
+                                                className="remove-button">X</button>
                                     )}
                                 </div>
                             ))}

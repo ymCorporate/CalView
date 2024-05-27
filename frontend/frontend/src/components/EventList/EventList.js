@@ -54,6 +54,7 @@ const EventList = () => {
         }
       } catch (error) {
         console.error('Failed to verify JWT:', error);
+        {navigate('/')}
       }
     };
 
@@ -64,6 +65,9 @@ const EventList = () => {
 
   console.log(`JWTverify: ${JWTverify}`);
 
+  if(setJWTverify===false){
+    {navigate('/')};
+  }
 
       return (
         <div>

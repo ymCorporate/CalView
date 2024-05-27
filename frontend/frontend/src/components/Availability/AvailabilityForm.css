@@ -1,65 +1,118 @@
+/* AvailabilityForm.css */
 
 .availability-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-  }
-  
-  .form {
-    width: 100%;
-  }
-  
-  .days-grid {
-    display: grid;
-    grid-template-columns: repeat(7, 1fr);
-    gap: 20px;
-  }
-  
-  .day {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .day-name {
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-  
-  .time-slot {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .add-slot-button {
-    margin-top: 10px;
-  }
-  
-  .submit-button {
-    margin-top: 20px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 80%; /* Adjust width to better fit the content */
+  margin: 0 auto; /* Center the form */
+  padding: 20px; /* Add padding for better spacing */
+  background-color: #f9f9f9; /* Light background for contrast */
+  border-radius: 20px; /* Rounded corners for better aesthetics */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+  border-color: #000000;
+}
 
-  /* AvailabilityForm.css */
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form {
+  width: 100%;
+}
 
 .days-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px; /* Reduce the gap between grid items */
-  }
-  
-  .day {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 5px; /* Reduce the padding */
-  }
-  
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Increase columns for more compact layout */
+  gap: 10px;
+}
+
+.day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: #fff; /* White background for each day */
+  padding: 15px; /* Add padding for space */
+  border-radius: 5px; /* Slight rounding for better aesthetics */
+  box-shadow: 0 2px 4px rgba(7, 6, 6, 0.1); /* Light shadow for depth */
+}
+
+.day-name {
+  font-size: 18px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333; /* Darker text color for better readability */
+}
+
+.time-slot {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%; /* Full width for better alignment */
+  justify-content: space-between; /* Space out elements evenly */
+}
+
+.time-slot select, .time-slot input[type="checkbox"] {
+  margin-right: 5px; /* Space out elements */
+}
+
+.time-slot .text-red-500 {
+  font-size: 12px; /* Smaller font for error message */
+  margin-left: 5px;
+}
+
+.add-slot-button {
+  margin-top: 10px;
+  padding: 5px 10px; /* Add padding for better click area */
+  background-color: #4CAF50; /* Green background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.add-slot-button:hover {
+  background-color: #45a049; /* Darker green on hover */
+}
+
+
+.remove-button button{
+  background-color:#e53935;
+}
+
+.submit-button {
+  margin-top: 20px;
+  padding: 10px 20px; /* Add padding for better click area */
+  background-color: #008CBA; /* Blue background */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.submit-button:disabled {
+  background-color: #ccc; /* Grey background when disabled */
+  cursor: not-allowed; /* Not allowed cursor when disabled */
+}
+
+.submit-button:hover:not(:disabled) {
+  background-color: #007bb5; /* Darker blue on hover */
+}
+
+.time-slot button {
+  background-color: #f44336; /* Red background for delete button */
+  color: white; /* White text */
+  border: none;
+  border-radius: 5px; /* Rounded corners */
+  padding: 5px 10px; /* Add padding for better click area */
+  cursor: pointer; /* Pointer cursor */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.time-slot button:hover {
+  background-color: #e53935; /* Darker red on hover */
+}
