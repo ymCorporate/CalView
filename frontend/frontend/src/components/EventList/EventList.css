@@ -1,50 +1,94 @@
+/* Container for the event list */
 .event-list {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+    gap: 20px; /* Add some space between the event boxes */
+    padding: 20px; /* Add some padding around the event list */
 }
 
+/* Individual event box styling */
 .event-box {
     width: 30%;
-    border: 5px solid #3ae917;
-    border-radius: 100px;
+    border: 2px solid #3ae917;
+    border-radius: 15px;
     padding: 20px;
     margin-bottom: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition effects */
+    background-color: #fff; /* Set a white background for better readability */
 }
 
+.event-box:hover {
+    transform: translateY(-5px); /* Lift the event box on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
+}
+
+/* Event details styling */
 .EventName, .Duration, .Location {
-    color: #05020a;
+    color: #333; /* Change text color to a darker shade for better contrast */
+    margin: 10px 0; /* Add some margin for spacing between text elements */
+    font-family: 'Arial', sans-serif; /* Use a clean, modern font */
 }
 
+.EventName {
+    font-size: 1.5em; /* Increase the font size for the event name */
+    font-weight: bold; /* Make the event name bold */
+}
+
+.Duration, .Location {
+    font-size: 1.1em; /* Slightly increase the font size for other details */
+}
+
+/* Create event button styling */
 .create-event-button {
     display: inline-block;
-    padding: 10px 20px;
+    padding: 12px 24px;
     margin: 20px 0;
     background-color: #007BFF;
-    /* align-items: center; */
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 25px; /* Increase border radius for a pill-shaped button */
     font-size: 16px;
-    transition: background-color 0.3s ease;
-  }
-  
-  .create-event-button:hover {
-    background-color: #0056b3;
-  }
+    font-weight: bold; /* Make the text bold */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition effects */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
 
+.create-event-button:hover {
+    background-color: #0056b3;
+    transform: translateY(-3px); /* Lift the button slightly on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
+}
+
+/* Booking link styling */
 .booking-link {
     display: inline-block;
     padding: 10px 20px;
-    margin: 20px 0;
-    background-color: #007BFF;
+    margin: 10px 0;
+    background-color: #28a745; /* Use a different color to distinguish from the create button */
     color: white;
     text-decoration: none;
-    border-radius: 5px;
+    border-radius: 25px; /* Increase border radius for a pill-shaped button */
     font-size: 16px;
-    transition: background-color 0.3s ease;
+    font-weight: bold; /* Make the text bold */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transition effects */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
 }
 
 .booking-link:hover {
-    background-color: #0056b3;
+    background-color: #218838; /* Darker shade of green on hover */
+    transform: translateY(-3px); /* Lift the link slightly on hover */
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Enhance the shadow on hover */
+}
+
+/* Additional styling for links inside the event box */
+.event-box a {
+    text-decoration: none; /* Remove underline from links */
+    color: inherit; /* Inherit color from parent element */
+    display: block; /* Make links block level to take full width */
+}
+
+.event-box a:hover {
+    text-decoration: underline; /* Add underline on hover for better indication */
 }

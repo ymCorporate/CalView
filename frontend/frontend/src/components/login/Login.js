@@ -51,40 +51,39 @@ const Login =()=>{
             </section>
             ):(
                 <section className='signin'>
-                <p ref={errRef} className={errMsg?"errmsg":"offscreen"} aria-live="assertive">{errMsg}</p>
-                <h1>Sign in</h1>
-                <form onSubmit={handleSubmit}>
-                    <label className='userLabel' htmlFor="username">
-                        Username:
-                    </label>
+                <div className="signin-form">
+                    <h1>Sign in</h1>
+                    {errMsg && <p className="errmsg">{errMsg}</p>}
+                    <form onSubmit={handleSubmit}>
+                    <label className='signin-label' htmlFor="username">Username:</label>
                     <input
                         type="text"
                         id="username"
                         required
                         autoComplete="off"
                         ref={userRef}
+                        className="signin-input"
                         onChange={(e) => setUser(e.target.value)}
                         value={user}
                     />
-                    <label className='userLabel' htmlFor="password">
-                        Password:
-                    </label>
+                    <label className='signin-label' htmlFor="password">Password:</label>
                     <input
                         type="password"
                         id="password"
                         required
+                        className="signin-input"
                         onChange={(e) => setPwd(e.target.value)}
                         value={pwd}
                     />
                     <button className='signin-button'>Sign In</button>
-                    <p>
-                        Need an account?<br/>
-                        <span className="line">
-                            <Link to="/Register">Register here</Link>
-                        </span>
+                    </form>
+                    <p className="signup-link">
+                    Need an account?{' '}
+                    <Link to="/Register">Register here</Link>
                     </p>
-                </form>
-            </section>
+                </div>
+                </section>
+
         )
     )
 }
