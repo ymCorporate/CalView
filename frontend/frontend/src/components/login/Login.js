@@ -1,8 +1,15 @@
 import { useRef,useState,useEffect} from 'react';
 import {Link, useNavigate} from "react-router-dom";
-import axios from 'axios';
 import Cookies from 'js-cookie';
+import { loginQuery } from './LoginQuery';
 import './Login.css';
+
+import { GraphQLClient } from 'graphql-request';
+const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
+    headers: {
+        'x-hasura-admin-secret': '123',
+    },
+});
 
 const Login =()=>{
     const userRef = useRef();
@@ -32,9 +39,10 @@ const Login =()=>{
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const response = await axios.post('http://localhost:6541/login', { email: user, password: pwd });
-            if (response.data.message === 'Welcome User') {
-                Cookies.set('jwt', response.data.token); // Save the JWT to a cookie
+            const response = await graphqlClient.request(loginQuery, { email: user, password: pwd });
+            // console.log("This is response: ",response);
+            if (response.LoginQuery.message === true) {
+                Cookies.set('jwt', response.LoginQuery.token); // Save the JWT to a cookie
                 setSuccess(true);
             } else {
                 setErrMsg(response.data.error);

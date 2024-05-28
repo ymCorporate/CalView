@@ -1,6 +1,7 @@
 import { GraphQLClient} from 'graphql-request';
 import { LoginQuery } from './query.mjs';
 import jwt from 'jsonwebtoken';
+import bcrypt from 'bcrypt';
 // import bodyParser from "body-parser";
 
 const login = new LoginQuery();
@@ -32,23 +33,46 @@ const client = new GraphQLClient(hasuraEndpoint, {
     },
 });
 
+// http://host.docker.internal:8888
 
 
 export class LoginUser{
     async login(req, res){
         try{
             // console.log(req.body)
-            const {email, password} = req.body;
-            const data = await client.request(login.loginUser(email, password),{});
+            const {email, password} = req.body.input.input;
+
+            
+
+
+            const data = await client.request(login.loginUser(),{email});
+
+            if (data.user.length === 0) {
+                // User not found
+                return res.status(401).json({ message: false });
+            }
+
+            const user = data.user[0];
+            console.log("This is user data: ", user);
+
+            // Compare the entered password with the hashed password
+            const passwordMatch = await bcrypt.compare(password, user.password);
+
+            console.log("Password Match: ", passwordMatch)
+            if (!passwordMatch) {
+                // Passwords do not match
+                return res.status(401).json({ message: false });
+            }
+
             const token = generateJwtToken();
-            // console.log(data);
+            console.log("Data for the same: ",data);
             // res.json(data);
-            res.status(200).json(
+            res.json(
                 {
-                    "message":"Welcome User",
-                    "uuid":data.kalenview_by_pk.uuid,
-                    "first_name":data.kalenview_by_pk.first_name,
-                    "last_name":data.kalenview_by_pk.last_name,
+                    "message": true,
+                    "uuid": user.uuid,
+                    "first_name": user.first_name,
+                    "last_name": user.last_name,
                     "token": token // Include the JWT in the response
                 });
         }catch (error) {

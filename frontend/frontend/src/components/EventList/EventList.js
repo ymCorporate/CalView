@@ -16,6 +16,8 @@ const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
     },
 });
 
+console.log("This is JWT",graphqlClient);
+
 const EventList = () => {
   const [events, setEvents] = useState([]);
   const [JWTverify, setJWTverify] = useState(false);
@@ -25,7 +27,8 @@ const EventList = () => {
     const fetchEvents = async () => {
       try {
         const response = await graphqlClient.request(get_all_events, {});
-        // console.log(response.kalenview_create_events);
+        console.log(response);
+        // setEvents(response.kalenview_create_events);
         setEvents(response.kalenview_create_events);
       } catch (error){
         console.error('Failed to fetch events:', error);
@@ -40,7 +43,7 @@ const EventList = () => {
       const jwt = Cookies.get('jwt');
       const data ={};
       try {
-        const verification = await axios.post('http://localhost:6541/verify',data,{
+        const verification = await axios.post('http://localhost:8888/.netlify/functions/api/verify',data,{
           headers: {
             Authorization: `${jwt}`
           }
@@ -54,6 +57,7 @@ const EventList = () => {
         }
       } catch (error) {
         console.error('Failed to verify JWT:', error);
+        {navigate('/')}
       }
     };
 
@@ -64,6 +68,9 @@ const EventList = () => {
 
   console.log(`JWTverify: ${JWTverify}`);
 
+  if(setJWTverify===false){
+    {navigate('/')};
+  }
 
       return (
         <div>

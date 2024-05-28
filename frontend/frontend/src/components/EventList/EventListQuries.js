@@ -8,3 +8,14 @@ export const get_all_events = `
         }
     }
 `;
+
+// export const get_all_events = `
+//     query MyQuery {
+//         GetEvents {
+//         duration
+//         event_name
+//         location_detail
+//         location_type
+//         }
+//     }
+// `;

@@ -11,6 +11,7 @@
   box-sizing: border-box;
   border: 1px solid #ccc;
   border-radius: 8px;
+  background-color: #f9f9f9; /* Light background for better contrast */
 }
 
 .event-edit form {
@@ -64,5 +65,5 @@
 }
 
 .edit-button:hover {
-  background-color: #45a049;
+  background-color: #2a47a6;
 }
