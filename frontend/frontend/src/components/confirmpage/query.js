@@ -1,4 +1,4 @@
-import { gql } from 'graphql-request';
+
 
 export const BOOK_SLOT = `
     mutation BookSlot($day: String!, $eventName: String!, $date: date!, $startTime: String!, $endTime: String!, $name: String!, $email: String!) {
@@ -14,3 +14,23 @@ export const BOOK_SLOT = `
         }
     }
 `;
+
+export const OrganizerName = `
+query MyQuery {
+    kalenview {
+      first_name
+      last_name
+    }
+  }
+`;
+
+
+export const EventDetails = `
+  query MyQuery($eventName: String!) {
+    kalenview_create_events(where: {event_name: {_eq: $eventName}}) {
+      location_type
+      location_detail
+    }
+  }
+`;
+

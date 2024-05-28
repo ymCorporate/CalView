@@ -22,7 +22,9 @@ export class GetEvent{
 
   try {
     const data = await client.request(get_events.GetEvents(),{});
-    //console.log(data);
+
+    //   console.log(data.kalenview_create_events);
+
     res.json(data.kalenview_create_events);
     // res.status(200).json({success:true});
     } catch (error) {

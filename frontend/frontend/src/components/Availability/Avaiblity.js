@@ -170,12 +170,17 @@ const AvailabilityForm = () => {
             for (const [day, slots] of Object.entries(filteredAvailability)) {
                 for (const slot of slots) {
                     if (slot.selected) {
-                        await graphqlClient.request(UPSERT_AVAILABILITY, {
+                        const data = await graphqlClient.request(UPSERT_AVAILABILITY, {
                             day: day,
                             startTime: slot.startTime,
                             endTime: slot.endTime,
                             eventName: eventName,
                         });
+                        console.log(data.insert_availability_one.event_name);
+
+                        if(!(data.insert_availability_one.event_name==eventName)){
+                            alert(`Availability will not set for Timeline:\n${day} ${slot.startTime}\nas it is already present in Event Name:\n${data.insert_availability_one.event_name}`);
+                        }
                     }
                 }
             }

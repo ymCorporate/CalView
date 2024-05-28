@@ -14,7 +14,7 @@ export const UPSERT_AVAILABILITY = `
     mutation UpsertAvailability($day: String!, $startTime: String!, $endTime: String!, $eventName: String!) {
         insert_availability_one(
             object: { day: $day, start_time: $startTime, end_time: $endTime, event_name: $eventName },
-            on_conflict: { constraint: availability_day_start_time_event_name_key, update_columns: [end_time] }
+            on_conflict: { constraint: availability_day_start_time_key, update_columns: [end_time] }
         ) {
             id
             day

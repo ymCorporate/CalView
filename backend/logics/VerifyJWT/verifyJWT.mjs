@@ -21,7 +21,7 @@ export class VerifyJWToken{
               }
 
               else{
-                console.log("Valid jwt");
+                console.log("Valid jwt !");
                 return res.status(200).json({success:true});
               }
 
