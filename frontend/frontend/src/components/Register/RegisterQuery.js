@@ -1,15 +1,9 @@
 export const registerUser = `
-mutation ($email: String!, $password: String!, $firstName: String!, $lastName: String!, $company: String!, $role: String!) {
-    insert_kalenview_one(object: {
-        email: $email,
-        password: $password,
-        first_name: $firstName,
-        last_name: $lastName,
-        company_name: $company,
-        company_role: $role
+mutation InputUser($email: String!, $password: String!, $firstName: String!, $lastName: String!, $company: String!, $role: String!) {
+    InsertKalenviewOne(input: {email: $email, password: $password, firstName: $firstName, lastName: $lastName, company: $company, role: $role
     }) {
-        uuid
+      uuid
     }
-}
+  }
 `
 ;

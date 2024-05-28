@@ -13,6 +13,7 @@ import { setAvailability } from '../logics/Availability/setAvailQueries.mjs';
 import { CreateUser } from '../logics/Register/registerUser.mjs';
 import { GetSlots } from '../logics/SelectSlot/slotSelect.mjs';
 
+
 import { Mailer } from '../logics/Mailer/mailer.mjs';
 
 // const auth_logic = new AuthLogic();
@@ -28,6 +29,7 @@ const edit_Event = new EditParticularEventDetails();
 const availability = new setAvailability();
 const insert_user = new CreateUser();
 const getSlot = new GetSlots();
+
 const router = express.Router();
 
 const mail_message = new Mailer();
@@ -36,8 +38,13 @@ const mail_message = new Mailer();
 // For Mail
 router.post('/event/mail', mail_message.send_real_mail);
 
-// // For signup
-// router.post('/register', insert_user.create_user);
+// For signup
+router.post('/registeruser', insert_user.create_user);
+// router.post('/registeruser', (req,res)=>{
+//     console.log(req.body);
+//     res.json({
+//         uuid:"74108520963"
+//       })});
 
 // For login
 router.post('/login', login_user.login);
@@ -70,6 +77,18 @@ router.post('/events/create', new_event.create_event);
 // router.get('/events/slots/:dayofWeek/:eventName', getSlot.get_slots);
 
 
+// router.get('/hello', (req,res)=>{
+//     res.json({"message":"Hello"});
+// });
 
+// router.post('/geteventsdata', (req,res)=>{
+//     // console.log(req.body);
+//     res.json({
+//         duration:30,
+//         event_name:"dd",
+//         location_detail:"dd",
+//         location_type:"dd"
+//       })
+// });
 
 export {router};

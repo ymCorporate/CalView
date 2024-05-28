@@ -1,5 +1,6 @@
 import { GraphQLClient} from 'graphql-request';
 import { RegisterEventQuery } from './query.mjs';
+import bcrypt from 'bcrypt';
 // import bodyParser from "body-parser";
 
 const new_user = new RegisterEventQuery();
@@ -18,18 +19,24 @@ const client = new GraphQLClient(hasuraEndpoint, {
 
 export class CreateUser{
     async create_user(req, res){
-        const { email, password, firstName, lastName, company, role } = req.body;
+      console.log(req.body.input.input);
+        const { email, password, firstName, lastName, company, role } = req.body.input.input;
         console.log(email, password, firstName, lastName, company, role);
 
   try {
+
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+
     const data = await client.request( new_user.registerUser(),{
-        email, password, firstName, lastName, company, role
+        email, hashedPassword, firstName, lastName, company, role
       });
 
-      console.log(data);
+      console.log(data.insert_kalenview_one.uuid);
 
-    // res.json(data);
-    res.status(200).json({success: true});
+
+    // res.json(data.insert_kalenview_one.uuid);
+    res.status(200).json({uuid:`${data.insert_kalenview_one.uuid}`});
     } catch (error) {
         console.error('Failed to create user:', error);
         res.json({ Notsuccess: false });

@@ -24,7 +24,7 @@ const CreateEvent = () => {
     event.preventDefault();
 
     try {
-        const response = await axios.post('http://localhost:6541/events/create', {
+        const response = await axios.post('http://localhost:8888/.netlify/functions/api/events/create', {
         eventName,
         duration,
         locationType,
@@ -49,7 +49,7 @@ const CreateEvent = () => {
       const jwt = Cookies.get('jwt');
       const data ={};
       try {
-        const verification = await axios.post('http://localhost:6541/verify',data,{
+        const verification = await axios.post('http://localhost:8888/.netlify/functions/api/verify',data,{
           headers: {
             Authorization: `${jwt}`
           }
