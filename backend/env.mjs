@@ -1,2 +1,2 @@
-export const EMAIL = "pramanickdebesh@gmail.com";
-export const PASSWORD = "hzgtirhzoqsdeltq";
+export const EMAIL = "mail@mail.com";
+export const PASSWORD = "passcode";
