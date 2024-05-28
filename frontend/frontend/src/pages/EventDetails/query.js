@@ -21,3 +21,23 @@ export const UPDATE_EVENT_DETAIL = `
         }
     }
 `;
+
+
+
+
+export const GET_EVENT_AND_AVAILABILITY = `
+  query GetEventAndAvailability($eventName: String!) {
+    event: kalenview_create_events_by_pk(event_name: $eventName) {
+      event_name
+      duration
+      location_type
+      location_detail
+    }
+    availability: availability(where: { event_name: { _eq: $eventName } }) {
+      day
+      start_time
+      end_time
+    }
+  }
+`;
+

@@ -1,0 +1,50 @@
+/* SuccessPage.css */
+
+.success-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0; /* Light background for contrast */
+}
+
+.success-card {
+    background-color: #ffffff; /* White card background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    max-width: 400px;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.success-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.success-card h2 {
+    color: #333333; /* Darker text for better readability */
+    margin-bottom: 20px;
+}
+
+.success-card p {
+    color: #555555; /* Slightly lighter text for secondary information */
+    margin-bottom: 20px;
+}
+
+.success-card button {
+    background-color: #007bff; /* Bootstrap primary color */
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.success-card button:hover {
+    background-color: #0056b3; /* Darker shade for hover effect */
+    transform: translateY(-2px);
+}

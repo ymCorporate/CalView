@@ -13,6 +13,7 @@ const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
 
 function BookingPage() {
     const { eventName, slotDetails } = useParams();
+    //console.log(eventName)
     const [organizerName, setOrganizerName] = useState({});
     const [startTime, endTime, dayOfWeek,selectedDate,month, year] = slotDetails.split('-');
     const navigate = useNavigate();
@@ -58,7 +59,8 @@ function BookingPage() {
                 console.log(response.data.error);
             }
 
-
+            //console.log({eventName})
+            //navigate(`/success/:eventName`);
             navigate(`/success`);
         } catch (error) {
             console.error('Error booking slot:', error);
@@ -82,7 +84,7 @@ function BookingPage() {
     return (
         <div className="booking-container">
             <div className="organizer-info">
-            <h3>Event Name</h3>
+                <h3>Event Name</h3>
                 <p>{eventName}</p>
                 <h3>Organizer Name</h3>
                 <p>{organizerName.first_name +" "+ organizerName.last_name}</p>
