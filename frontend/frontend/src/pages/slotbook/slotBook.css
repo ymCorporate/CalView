@@ -1,5 +1,3 @@
-
-
 /* slotBook.css */
 
 /* Container for the card */
@@ -14,17 +12,22 @@
 
 /* Card styling */
 .card {
-    background-color: white;
+    background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 20px;
-    max-width: 800px;
+    max-width: 1000px;
     width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
+    transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .card h2 {
@@ -48,12 +51,32 @@
     margin-right: 20px;
 }
 
-/* Calendar container inside the content container */
-.calendar-container {
-    width: 35%;
-    border-right: 1px solid #ddd;
-    padding-right: 20px;
-    margin-right: 20px;
+/*!* Calendar card styling *!*/
+/*.calendar-card {*/
+/*    background-color: #ffffff;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 8px;*/
+/*    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);*/
+/*    padding: 20px;*/
+/*    width: 35%;*/
+/*    display: flex;*/
+/*    flex-direction: column;*/
+/*    align-items: center;*/
+/*    transition: box-shadow 0.3s ease;*/
+/*}*/
+.calendar-card {
+    padding: 20px;
+    width: 40%; /* Increased width from 35% to 40% */
+    margin-right: 20px; /* Ensure there's some spacing between cards */
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px;
+    transition: box-shadow 0.3s ease;
+}
+
+.calendar-card:hover {
+    box-shadow: 0 4px 16px;
 }
 
 .react-calendar {
@@ -70,15 +93,12 @@
     padding-bottom: 20px;
 }
 
-.react-calendar__navigation__label {
-    border: none;
-    background-color: white;
-}
-
+.react-calendar__navigation__label,
 .react-calendar__navigation__prev-button,
 .react-calendar__navigation__next-button {
     border: none;
     background-color: white;
+    color: #ffffff;
 }
 
 .react-calendar__navigation__prev2-button,
@@ -94,6 +114,7 @@
 
 .react-calendar__navigation button {
     font-size: 1em;
+    color: black;
 }
 
 .react-calendar__month-view__weekdays__weekday {
@@ -122,6 +143,7 @@ abbr[title] {
     display: flex;
     justify-content: center;
     align-items: center;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .react-calendar__tile--active {
@@ -130,22 +152,17 @@ abbr[title] {
     line-height: 10px;
     color: #ef6234;
     cursor: pointer;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.react-calendar__tile--hover {
-    background: #ef6234;
-    border-radius: 30px;
-    line-height: 10px;
-    color: white;
-    cursor: pointer;
-}
-
+.react-calendar__tile--hover,
 .react-calendar button:enabled:focus {
     background: #ef6234;
     border-radius: 30px;
     line-height: 10px;
     color: white;
     cursor: pointer;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 /* Styles for the slot booking page */
@@ -154,11 +171,18 @@ abbr[title] {
     margin-top: 20px;
     padding: 20px;
     border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease;
+}
+
+.slot-booking-page:hover {
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
 }
 
 .slot-booking-page h2 {
     margin-bottom: 10px;
+    color: #333;
 }
 
 .slot-booking-page p {
@@ -167,10 +191,12 @@ abbr[title] {
     border: 1px solid #ddd;
     border-radius: 5px;
     cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
 .slot-booking-page p:hover {
     background-color: #f5f5f5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 /* Styles for the slot boxes */
@@ -184,7 +210,7 @@ abbr[title] {
     margin-bottom: 10px;
     border-radius: 5px;
     background-color: #f0f0f0;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
     cursor: pointer;
 }
 
@@ -195,33 +221,48 @@ abbr[title] {
 }
 
 .slot-box p {
-    margin: 0; /* Remove default margin */
-    padding: 0; /* Remove default padding */
+    margin: 0;
+    padding: 0;
     font-size: 16px;
-    color: #333;
 }
 
 .slot-box:hover {
-    background-color: #cce5ff; /* Lighter blue for hover effect */
+    background-color: #cce5ff;
+    box-shadow: 0 2px 8px;
 }
 
 /* Styles for the split slot view */
 .slot-half {
-    width: 50%;
+    width: 100%;
     height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     font-size: 14px;
+    font-weight: bold;
     color: #333;
-    background-color: #e9ecef; /* Background color for the split halves */
-    border-right: 1px solid #ddd; /* Separator between halves */
+    background-color: #e9ecef;
+    border-right: 1px solid #ddd;
 }
 
 .slot-half:last-child {
-    border-right: none; /* Remove border on the last half */
+    border-right: none;
+    color: black;
+}
+.slot-half.next-half {
+    background-color: #007BFF;
+    color: white;
+    cursor: pointer;
 }
 
-#half-next{
-    background-color: #0d73e0;
+.slot-half.next-half:hover {
+    background-color: #0056b3;
 }
+
+.slot-box.clicked .slot-half {
+    width: 50%;
+    cursor: default;
+}
+/*#half-next {*/
+/*    background-color: #0d73e0;*/
+/*}*/

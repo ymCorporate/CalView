@@ -30,7 +30,7 @@ export class Mailer {
         const response = {
             body: {
                 name: userName,
-                intro: `You have an upcoming event/meeting: ${eventName}`,
+                intro: `This is to inform you of an upcoming event/meeting: ${eventName}`,
                 table: {
                     data: [
                         {
@@ -59,7 +59,7 @@ export class Mailer {
                         }
                     ]
                 },
-                outro: "Kindly be present there are per the scheduled time"
+                outro: "Kindly be present at the aforementioned timings"
             }
         }
 
