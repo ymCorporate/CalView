@@ -18,8 +18,8 @@ const generateJwtToken = () => {
             "admin",
             "user"
           ],
-          "x-hasura-default-role": "admin"
-        // "x-hasura-default-role": "user"
+         "x-hasura-default-role": "admin"
+        //  "x-hasura-default-role": "user"
         }
       }
 

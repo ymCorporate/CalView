@@ -2,15 +2,20 @@ import React, { useState, useEffect, createContext, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import AvailabilityForm from '../Availability/AvaiblityCopy';
 import { GraphQLClient } from 'graphql-request';
+import Cookies from 'js-cookie';
 import { GET_EVENT_AND_AVAILABILITY, UPDATE_EVENT_DETAIL } from './query';
 import './EventDetails.css';
 
 // Create a context for sharing event data
 const EventContext = createContext();
 
+const jwt = Cookies.get('jwt');
+const user_uuid = Cookies.get('uuid');
+
 const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
   headers: {
-    'x-hasura-admin-secret': '123',
+    // 'x-hasura-admin-secret': '123',
+    'Authorization': `Bearer ${jwt}`
   },
 });
 
@@ -27,9 +32,10 @@ const EventDetails = () => {
   useEffect(() => {
     const fetchEventAndAvailability = async () => {
       try {
-        const response = await graphqlClient.request(GET_EVENT_AND_AVAILABILITY, { eventName });
-        setEvent(response.event);
-        setEditEvent(response.event);
+        const response = await graphqlClient.request(GET_EVENT_AND_AVAILABILITY, { eventName, user_uuid });
+        console.log("This is response: ",response.kalenview_create_events[0])
+        setEvent(response.kalenview_create_events[0]);
+        setEditEvent(response.kalenview_create_events[0]);
         const newAvailability = response.availability.reduce((acc, slot) => {
           if (!acc[slot.day]) {
             acc[slot.day] = [];
@@ -55,6 +61,7 @@ const EventDetails = () => {
 
     try {
       const response = await graphqlClient.request(UPDATE_EVENT_DETAIL, {
+        user_uuid,
         eventName,
         data: {
           event_name: editEvent.event_name,
@@ -64,7 +71,9 @@ const EventDetails = () => {
         },
       });
 
-      setEvent(response.update_kalenview_create_events_by_pk);
+      // console.log(response)
+
+      setEvent(response.update_kalenview_create_events.returning[0]);
       setShowEditForm(false);
     } catch (error) {
       console.error('Failed to update event:', error);

@@ -12,6 +12,7 @@ const CreateEvent = () => {
   const [locationDetail, setLocationDetail] = useState('');
   const [JWTverify, setJWTverify] = useState(false);
   const navigate = useNavigate();
+  const user_uuid = Cookies.get('uuid');
 
   const handleLocationTypeChange = (newLocationType)=>{
     setLocationType(newLocationType);
@@ -25,6 +26,7 @@ const CreateEvent = () => {
 
     try {
         const response = await axios.post('http://localhost:8888/.netlify/functions/api/events/create', {
+        user_uuid,
         eventName,
         duration,
         locationType,

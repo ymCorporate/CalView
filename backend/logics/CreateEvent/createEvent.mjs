@@ -18,11 +18,12 @@ const client = new GraphQLClient(hasuraEndpoint, {
 
 export class CreateEvent{
     async create_event(req, res){
-        const { eventName, duration, locationType, locationDetail } = req.body;
-        console.log(eventName, duration, locationType, locationDetail);
+        const { eventName, duration, locationType, locationDetail, user_uuid } = req.body;
+        console.log(eventName, duration, locationType, locationDetail, user_uuid);
 
   try {
     const data = await client.request( new_event.CreateEvent(),{
+        user_uuid,
         eventName,
         duration: parseInt(duration),
         locationType,
