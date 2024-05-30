@@ -132,7 +132,7 @@ function CalendarPage() {
                     });
                 }
             }
-            start.setMinutes(start.getMinutes() + 30);
+            start.setMinutes(start.getMinutes() + duration);
         }
 
         return timeSlots;
