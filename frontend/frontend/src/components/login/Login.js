@@ -43,6 +43,7 @@ const Login =()=>{
             // console.log("This is response: ",response);
             if (response.LoginQuery.message === true) {
                 Cookies.set('jwt', response.LoginQuery.token); // Save the JWT to a cookie
+                Cookies.set('uuid', response.LoginQuery.uuid); // Save the uuid of the user
                 setSuccess(true);
             } else {
                 setErrMsg(response.data.error);

@@ -8,6 +8,7 @@ import { get_all_events } from './EventListQuries';
 import './EventList.css';
 
 const jwt = Cookies.get('jwt');
+const user_uuid = Cookies.get('uuid');
 
 const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
     headers: {
@@ -26,7 +27,7 @@ const EventList = () => {
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const response = await graphqlClient.request(get_all_events, {});
+        const response = await graphqlClient.request(get_all_events, {user_uuid});
         console.log(response);
         // setEvents(response.kalenview_create_events);
         setEvents(response.kalenview_create_events);

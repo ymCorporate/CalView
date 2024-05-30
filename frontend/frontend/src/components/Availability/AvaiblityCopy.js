@@ -2,12 +2,18 @@ import React, { useState, useEffect } from 'react';
 import { useEvent } from '../EventDetails/EventDetailsCopy';
 import { GraphQLClient } from 'graphql-request';
 import { useParams } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import { UPSERT_AVAILABILITY, DELETE_AVAILABILITY } from './graphqlQueries';
 import './AvailabilityFormCopy.css';
+
+
+const jwt = Cookies.get('jwt');
+const user_uuid = Cookies.get('uuid');
 
 const graphqlClient = new GraphQLClient('http://localhost:8080/v1/graphql', {
   headers: {
     'x-hasura-admin-secret': '123',
+    'Authorization': `Bearer ${jwt}`
   },
 });
 
@@ -77,6 +83,7 @@ const AvailabilityForm = () => {
         const slotToDelete = availability[day][index];
         try {
           const response = await graphqlClient.request(DELETE_AVAILABILITY, {
+            user_uuid,
             day: day,
             startTime: slotToDelete.startTime,
             eventName: eventName,
@@ -116,6 +123,7 @@ const AvailabilityForm = () => {
         for (const slot of slots) {
           if (slot.selected) {
             const response = await graphqlClient.request(UPSERT_AVAILABILITY, {
+              user_uuid,
               eventName,
               day,
               startTime: slot.startTime,
@@ -150,6 +158,7 @@ const AvailabilityForm = () => {
     if (slotToDelete) {
       try {
         const response = await graphqlClient.request(DELETE_AVAILABILITY, {
+          user_uuid,
           day: day,
           startTime: slotToDelete.startTime,
           eventName: eventName,
